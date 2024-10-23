@@ -1,3 +1,5 @@
+import "server-only";
+
 import { postgresAdapter } from "@payloadcms/db-postgres";
 import { buildConfig } from "payload";
 
