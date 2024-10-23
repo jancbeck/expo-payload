@@ -8,9 +8,11 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "lint": "expo lint"
+    "lint": "expo lint",
+    "generate:types": "PAYLOAD_CONFIG_PATH=payload.config.ts payload generate:types"
   },
   "dependencies": {
+    "@payloadcms/db-postgres": "^3.0.0-beta.117",
     "@react-navigation/native": "7.0.0-rc.20",
     "expo": "~52.0.0-preview.1",
     "expo-constants": "~17.0.1",
@@ -20,6 +22,7 @@
     "expo-splash-screen": "~0.28.0",
     "expo-status-bar": "~2.0.0",
     "expo-system-ui": "~4.0.0",
+    "payload": "beta",
     "react": "18.3.1",
     "react-native": "0.76.0-rc.6",
     "react-native-gesture-handler": "~2.20.1",

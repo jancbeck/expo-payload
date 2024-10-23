@@ -1,18 +1,26 @@
-import { Image, Text, View } from "react-native";
+import { Text, View } from "react-native";
+import { getPayload } from "payload";
+import config from "@payload-config";
 
 export default async function HomePage() {
-  const res = await fetch("https://pokeapi.co/api/v2/pokemon/2");
-  const json = await res.json();
+  const payload = await getPayload({ config });
+  await payload.create({
+    collection: "posts",
+    data: {
+      title: `Hello world ${new Date().toISOString()}`,
+      content: "Welcome to my homepage!",
+    },
+  });
+  const posts = await payload.find({
+    collection: "posts",
+  });
   return (
-    <View style={{ padding: 8, borderWidth: 1 }}>
-      <Text style={{ fontWeight: "bold", fontSize: 24 }}>{json.name}</Text>
-      <Image
-        source={{ uri: json.sprites.front_default }}
-        style={{ width: 100, height: 100 }}
-      />
-
-      {json.abilities.map((ability) => (
-        <Text key={ability.ability.name}>- {ability.ability.name}</Text>
+    <View style={{ paddingTop: 50, paddingHorizontal: 20 }}>
+      <Text style={{ fontWeight: "bold", fontSize: 24 }}>
+        Node: {process.version}
+      </Text>
+      {posts.docs.map((post) => (
+        <Text key={post.id}>{post.title}</Text>
       ))}
     </View>
   );
