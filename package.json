@@ -31,7 +31,9 @@
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
+    "@reactioncommerce/babel-remove-es-create-require": "^1.0.0",
     "@types/react": "~18.2.45",
+    "babel-plugin-transform-import-meta": "^2.2.1",
     "typescript": "~5.3.3"
   },
   "private": true
