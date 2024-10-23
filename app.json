@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "my-app-52",
-    "slug": "my-app-52",
+    "name": "expo-payload",
+    "slug": "expo-payload",
+    "scheme": "expo-payload",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "splash": {
