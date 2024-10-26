@@ -1,11 +1,9 @@
-"use client";
-
 import React, { useState } from "react";
 import { createPost } from "@/app/actions";
 import { Pressable, View, Text, TextInput, StyleSheet } from "react-native";
 import { useRouter } from "expo-router";
 
-const Form = () => {
+export const CreatePostForm = ({ token }: { token: string }) => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -37,7 +35,7 @@ const Form = () => {
         disabled={isSubmitting}
         onPress={async () => {
           setIsSubmitting(true);
-          await createPost({ title, content });
+          await createPost({ title, content }, token);
           setIsSubmitting(false);
           router.push("/");
         }}
@@ -91,5 +89,3 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
 });
-
-export default Form;

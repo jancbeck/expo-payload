@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import { Text, View } from "react-native";
 import { getPayload } from "@/lib/payload";
-import Form from "@/components/form";
+import { Form } from "@/components/Forms";
 
 export default function HomePage() {
   return (
@@ -19,8 +19,14 @@ export default function HomePage() {
 
 async function Posts() {
   const payload = await getPayload();
-  const posts = await payload.find({
+  const { docs } = await payload.find({
     collection: "posts",
   });
-  return posts.docs.map((post) => <Text key={post.id}>{post.title}</Text>);
+  return !!docs.length ? (
+    docs.map((post) => <Text key={post.id}>{post.title}</Text>)
+  ) : (
+    <View>
+      <Text>No posts yet.</Text>
+    </View>
+  );
 }

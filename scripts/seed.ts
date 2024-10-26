@@ -28,15 +28,13 @@ async function run() {
 
     payload.logger.info("Seeding database...");
 
-    if (!email || !password) {
-      payload.logger.info("— Email and password are required");
-      process.exit(1);
+    if (email && password) {
+      payload.logger.info("Creating admin account...");
+      await payload.create<"admins">({
+        collection: "admins",
+        data: { email, password },
+      });
     }
-
-    await payload.create<"admins">({
-      collection: "admins",
-      data: { email, password },
-    });
 
     payload.logger.info("Database seeded successfully");
     process.exit(0);

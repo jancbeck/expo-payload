@@ -9,11 +9,11 @@
 export interface Config {
   auth: {
     admins: AdminAuthOperations;
-    customers: CustomerAuthOperations;
+    authors: AuthorAuthOperations;
   };
   collections: {
     admins: Admin;
-    customers: Customer;
+    authors: Author;
     posts: Post;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -28,8 +28,8 @@ export interface Config {
     | (Admin & {
         collection: 'admins';
       })
-    | (Customer & {
-        collection: 'customers';
+    | (Author & {
+        collection: 'authors';
       });
 }
 export interface AdminAuthOperations {
@@ -50,7 +50,7 @@ export interface AdminAuthOperations {
     password: string;
   };
 }
-export interface CustomerAuthOperations {
+export interface AuthorAuthOperations {
   forgotPassword: {
     email: string;
     password: string;
@@ -87,9 +87,9 @@ export interface Admin {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "customers".
+ * via the `definition` "authors".
  */
-export interface Customer {
+export interface Author {
   id: string;
   updatedAt: string;
   createdAt: string;
@@ -110,6 +110,7 @@ export interface Post {
   id: string;
   title?: string | null;
   content?: string | null;
+  author?: (string | null) | Author;
   updatedAt: string;
   createdAt: string;
 }
@@ -125,8 +126,8 @@ export interface PayloadLockedDocument {
         value: string | Admin;
       } | null)
     | ({
-        relationTo: 'customers';
-        value: string | Customer;
+        relationTo: 'authors';
+        value: string | Author;
       } | null)
     | ({
         relationTo: 'posts';
@@ -139,8 +140,8 @@ export interface PayloadLockedDocument {
         value: string | Admin;
       }
     | {
-        relationTo: 'customers';
-        value: string | Customer;
+        relationTo: 'authors';
+        value: string | Author;
       };
   updatedAt: string;
   createdAt: string;
@@ -157,8 +158,8 @@ export interface PayloadPreference {
         value: string | Admin;
       }
     | {
-        relationTo: 'customers';
-        value: string | Customer;
+        relationTo: 'authors';
+        value: string | Author;
       };
   key?: string | null;
   value?:

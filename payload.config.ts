@@ -1,11 +1,11 @@
 import { postgresAdapter } from "@payloadcms/db-postgres";
 import { buildConfig } from "payload";
 import { Admins } from "@/collections/Admins";
-import { Customers } from "@/collections/Customers";
+import { Authors } from "@/collections/Authors";
 import { Posts } from "@/collections/Posts";
 
 export default buildConfig({
-  collections: [Admins, Customers, Posts],
+  collections: [Admins, Authors, Posts],
   secret: process.env.PAYLOAD_SECRET || "",
   db: postgresAdapter({
     idType: "uuid",
