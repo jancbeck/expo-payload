@@ -8,8 +8,7 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "lint": "expo lint",
-    "generate:types": "PAYLOAD_CONFIG_PATH=payload.config.ts payload generate:types"
+    "lint": "expo lint"
   },
   "dependencies": {
     "@payloadcms/db-postgres": "^3.0.0-beta.117",
@@ -32,6 +31,7 @@
   "devDependencies": {
     "@babel/core": "^7.20.0",
     "@reactioncommerce/babel-remove-es-create-require": "^1.0.0",
+    "@types/bun": "^1.1.12",
     "@types/react": "~18.2.45",
     "babel-plugin-transform-import-meta": "^2.2.1",
     "typescript": "~5.3.3"

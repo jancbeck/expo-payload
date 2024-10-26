@@ -1,7 +1,6 @@
 import { Suspense } from "react";
 import { Text, View } from "react-native";
-import { getPayload } from "payload";
-import config from "@payload-config";
+import { getPayload } from "@/lib/payload";
 import Form from "@/components/form";
 
 export default function HomePage() {
@@ -19,7 +18,7 @@ export default function HomePage() {
 }
 
 async function Posts() {
-  const payload = await getPayload({ config });
+  const payload = await getPayload();
   const posts = await payload.find({
     collection: "posts",
   });

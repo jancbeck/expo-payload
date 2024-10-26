@@ -11,10 +11,16 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
    bun install
    ```
 
-2. Start the app
+2. Seed database
 
    ```bash
-    bun start
+   bunx --bun payload run scripts/seed.ts --email=mail@test.com --password=pass -- --disable-transpile
+   ```
+
+3. Start the app
+
+   ```bash
+   bun start
    ```
 
 In the output, you'll find options to open the app in a
@@ -26,26 +32,12 @@ In the output, you'll find options to open the app in a
 
 You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
 
-## Get a fresh project
+## Developing
 
-When you're ready, run:
+[Generate types](https://payloadcms.com/docs/beta/typescript/generating-types) (when server is not running)
 
 ```bash
-npm run reset-project
+   bunx --bun payload generate:types --disable-transpile
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+Payload will automatically generate types for you when making changes to your collections when your dev server is running.
