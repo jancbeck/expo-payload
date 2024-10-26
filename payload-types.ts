@@ -15,7 +15,6 @@ export interface Config {
     admins: Admin;
     authors: Author;
     posts: Post;
-    'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
@@ -109,42 +108,19 @@ export interface Author {
 export interface Post {
   id: string;
   title?: string | null;
-  content?: string | null;
   author?: (string | null) | Author;
+  _key?: string | null;
   updatedAt: string;
   createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "payload-locked-documents".
- */
-export interface PayloadLockedDocument {
-  id: string;
-  document?:
-    | ({
-        relationTo: 'admins';
-        value: string | Admin;
-      } | null)
-    | ({
-        relationTo: 'authors';
-        value: string | Author;
-      } | null)
-    | ({
-        relationTo: 'posts';
-        value: string | Post;
-      } | null);
-  globalSlug?: string | null;
-  user:
-    | {
-        relationTo: 'admins';
-        value: string | Admin;
-      }
-    | {
-        relationTo: 'authors';
-        value: string | Author;
-      };
-  updatedAt: string;
-  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

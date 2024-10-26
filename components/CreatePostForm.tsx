@@ -1,16 +1,23 @@
 import React, { useState } from "react";
-import { createPost } from "@/app/actions";
 import { Pressable, View, Text, TextInput, StyleSheet } from "react-native";
+import { Image } from "expo-image";
+import { createPost } from "@/app/actions";
+import { Camera } from "./Camera";
 import { useRouter } from "expo-router";
 
 export const CreatePostForm = ({ token }: { token: string }) => {
   const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
+  const [photo, setPhoto] = useState<string | undefined>(undefined);
 
   return (
     <View style={styles.form}>
+      {photo ? (
+        <Image source={{ uri: photo }} style={{ width: 100, height: 100 }} />
+      ) : (
+        <Camera setPhoto={setPhoto} />
+      )}
       <View style={styles.formGroup}>
         <Text style={styles.label}>Title</Text>
         <TextInput
@@ -20,24 +27,14 @@ export const CreatePostForm = ({ token }: { token: string }) => {
           placeholder="Title"
         />
       </View>
-      <View style={styles.formGroup}>
-        <Text style={styles.label}>Content</Text>
-        <TextInput
-          style={styles.textarea}
-          value={content}
-          onChangeText={(text) => setContent(text)}
-          placeholder="Content"
-          multiline
-        />
-      </View>
       <Pressable
         style={styles.button}
         disabled={isSubmitting}
         onPress={async () => {
           setIsSubmitting(true);
-          await createPost({ title, content }, token);
+          await createPost({ title, photo, token });
           setIsSubmitting(false);
-          router.push("/");
+          router.reload();
         }}
       >
         <Text style={styles.buttonText}>Submit</Text>

@@ -1,4 +1,5 @@
 import { postgresAdapter } from "@payloadcms/db-postgres";
+import { uploadthingStorage } from "@payloadcms/storage-uploadthing";
 import { buildConfig } from "payload";
 import { Admins } from "@/collections/Admins";
 import { Authors } from "@/collections/Authors";
@@ -19,4 +20,15 @@ export default buildConfig({
   admin: {
     user: "admins",
   },
+  plugins: [
+    uploadthingStorage({
+      collections: {
+        posts: true,
+      },
+      options: {
+        apiKey: process.env.UPLOADTHING_SECRET,
+        acl: "public-read",
+      },
+    }),
+  ],
 });

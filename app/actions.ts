@@ -2,18 +2,38 @@
 
 import { getPayload } from "@/lib/payload";
 
-export async function createPost(data = {}, token: string) {
+export async function createPost({
+  title,
+  photo,
+  token,
+}: {
+  title: string;
+  photo: string;
+  token: string;
+}) {
   const payload = await getPayload();
   const user = await getUser(token);
   if (!user) {
     throw new Error("User not found");
   }
+  const file = photo
+    ? {
+        data: Buffer.from(
+          photo.replace(/^data:image\/\w+;base64,/, ""),
+          "base64",
+        ),
+        mimetype: "image/jpeg",
+        name: "photo.jpg",
+        size: photo.length,
+      }
+    : undefined;
   await payload.create({
     collection: "posts",
     data: {
-      ...data,
+      title,
       author: user.id,
     },
+    file,
     user,
   });
   return { ok: true };
@@ -36,17 +56,18 @@ export async function login({
   password: string;
 }) {
   const payload = await getPayload();
-  const { token } = await payload.login({
-    collection: "authors",
-    data: {
-      email,
-      password,
-    },
-  });
-  if (!token) {
+  try {
+    const { token } = await payload.login({
+      collection: "authors",
+      data: {
+        email,
+        password,
+      },
+    });
+    return token;
+  } catch (error) {
     return { isError: true, message: "Invalid credentials" };
   }
-  return token;
 }
 
 export async function signup({
