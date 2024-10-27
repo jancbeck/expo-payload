@@ -1,10 +1,10 @@
-import { View } from "react-native";
 import { Slot } from "expo-router";
+import { SessionProvider } from "@/components/Providers";
 
 export default function Layout() {
   return (
-    <View>
+    <SessionProvider>
       <Slot />
-    </View>
+    </SessionProvider>
   );
 }

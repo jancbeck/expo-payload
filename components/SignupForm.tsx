@@ -1,5 +1,7 @@
+"use client";
+
 import React, { useState } from "react";
-import { signup } from "@/app/actions";
+import { createUser } from "@/app/actions";
 import { Pressable, View, Text, TextInput, StyleSheet } from "react-native";
 import { useRouter } from "expo-router";
 
@@ -40,7 +42,7 @@ export const SignupForm = () => {
         disabled={isSubmitting}
         onPress={async () => {
           setIsSubmitting(true);
-          const result = await signup({ email, password });
+          const result = await createUser({ email, password });
           setIsSubmitting(false);
           if (result.isError) {
             console.error(result.message);

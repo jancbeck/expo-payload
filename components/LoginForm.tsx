@@ -1,13 +1,12 @@
+"use client";
+
 import React, { useState } from "react";
-import { login } from "@/app/actions";
 import { Pressable, View, Text, TextInput, StyleSheet } from "react-native";
 import { useRouter } from "expo-router";
+import { useSession } from "@/components/Providers";
 
-export const LoginForm = ({
-  setToken,
-}: {
-  setToken: (token: string) => void;
-}) => {
+export const LoginForm = () => {
+  const { login } = useSession();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -43,12 +42,13 @@ export const LoginForm = ({
         disabled={isSubmitting}
         onPress={async () => {
           setIsSubmitting(true);
-          const token = await login({ email, password });
-          if (typeof token === "string") {
-            setToken(token);
-          }
+          const successOrError = await login({ email, password });
           setIsSubmitting(false);
-          router.push("/");
+          if (typeof successOrError === "object") {
+            alert(successOrError.message);
+          } else {
+            router.push("/");
+          }
         }}
       >
         <Text style={styles.buttonText}>Login</Text>
@@ -59,18 +59,11 @@ export const LoginForm = ({
 
 const styles = StyleSheet.create({
   form: {
-    display: "flex",
-    flexDirection: "column",
+    flexGrow: 0,
+    justifyContent: "center",
     gap: 20,
-    minWidth: "100%",
-    marginHorizontal: "auto",
-    padding: 20,
-    borderWidth: 1,
-    borderColor: "#ccc",
-    borderRadius: 8,
-    backgroundColor: "#f9f9f9",
   },
-  formGroup: {},
+  formGroup: { minWidth: "100%" },
   label: {
     marginBottom: 8,
     fontWeight: "bold",
@@ -88,6 +81,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#007bff",
   },
   buttonText: {
+    textAlign: "center",
     color: "white",
     fontSize: 16,
   },

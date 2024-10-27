@@ -1,8 +1,8 @@
 import { Text, View } from "react-native";
 import { Link } from "expo-router";
-import { VerifyEmailForm } from "@/components/VerifyEmailForm";
+import { SignupForm } from "@/components/SignupForm";
 
-export default function VerifyEmail() {
+export default function SignUp() {
   return (
     <View
       style={{
@@ -12,10 +12,8 @@ export default function VerifyEmail() {
         padding: 20,
       }}
     >
-      <Text style={{ fontWeight: "bold", fontSize: 24 }}>
-        Enter email token
-      </Text>
-      <VerifyEmailForm />
+      <Text style={{ fontWeight: "bold", fontSize: 24 }}>Signup</Text>
+      <SignupForm />
       <Link
         href="/"
         style={{

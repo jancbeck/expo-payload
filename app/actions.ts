@@ -11,32 +11,36 @@ export async function createPost({
   photo: string;
   token: string;
 }) {
-  const payload = await getPayload();
-  const user = await getUser(token);
-  if (!user) {
-    throw new Error("User not found");
+  try {
+    const payload = await getPayload();
+    const user = await getUser(token);
+    if (!user) {
+      throw new Error("User not found");
+    }
+    const file = photo
+      ? {
+          data: Buffer.from(
+            photo.replace(/^data:image\/\w+;base64,/, ""),
+            "base64",
+          ),
+          mimetype: "image/jpeg",
+          name: "photo.jpg",
+          size: photo.length,
+        }
+      : undefined;
+    await payload.create({
+      collection: "posts",
+      data: {
+        title,
+        author: user.id,
+      },
+      file,
+      user,
+    });
+    return { ok: true };
+  } catch (error) {
+    return { isError: true, message: (error as Error).message };
   }
-  const file = photo
-    ? {
-        data: Buffer.from(
-          photo.replace(/^data:image\/\w+;base64,/, ""),
-          "base64",
-        ),
-        mimetype: "image/jpeg",
-        name: "photo.jpg",
-        size: photo.length,
-      }
-    : undefined;
-  await payload.create({
-    collection: "posts",
-    data: {
-      title,
-      author: user.id,
-    },
-    file,
-    user,
-  });
-  return { ok: true };
 }
 
 export async function getUser(token: string) {
@@ -48,15 +52,15 @@ export async function getUser(token: string) {
   return user;
 }
 
-export async function login({
+export async function loginUser({
   email,
   password,
 }: {
   email: string;
   password: string;
 }) {
-  const payload = await getPayload();
   try {
+    const payload = await getPayload();
     const { token } = await payload.login({
       collection: "authors",
       data: {
@@ -64,33 +68,40 @@ export async function login({
         password,
       },
     });
+    if (!token) {
+      return { message: "Invalid credentials" };
+    }
     return token;
   } catch (error) {
-    return { isError: true, message: "Invalid credentials" };
+    return { message: (error as Error).message };
   }
 }
 
-export async function signup({
+export async function createUser({
   email,
   password,
 }: {
   email: string;
   password: string;
 }) {
-  const payload = await getPayload();
-  // TODO: add checks for existing user
-  const author = await payload.create({
-    collection: "authors",
-    data: {
-      email,
-      password,
-    },
-    disableVerificationEmail: false,
-  });
-  if (!author) {
-    return { isError: true, message: "Invalid credentials" };
+  try {
+    const payload = await getPayload();
+    // TODO: add checks for existing user
+    const author = await payload.create({
+      collection: "authors",
+      data: {
+        email,
+        password,
+      },
+      disableVerificationEmail: false,
+    });
+    if (!author) {
+      return { isError: true, message: "Invalid credentials" };
+    }
+    return { ok: true };
+  } catch (error) {
+    return { isError: true, message: (error as Error).message };
   }
-  return { ok: true };
 }
 
 export async function verifyEmail(token: string) {

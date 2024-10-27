@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from "react";
 import { Pressable, View, Text, TextInput, StyleSheet } from "react-native";
 import { Image } from "expo-image";
