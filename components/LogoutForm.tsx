@@ -7,8 +7,9 @@ import { useSession } from "./Providers";
 export function Logout() {
   const { logout } = useSession();
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+    <View style={{ flexGrow: 0 }}>
       <Text
+        style={{ textAlign: "center" }}
         onPress={() => {
           // The `app/(app)/_layout.tsx` will redirect to the sign-in screen.
           logout();

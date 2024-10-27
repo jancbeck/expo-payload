@@ -1,8 +1,8 @@
 "use client";
 
-import { CameraView, CameraType, useCameraPermissions } from "expo-camera";
 import { useState, useRef } from "react";
 import { Button, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { CameraView, CameraType, useCameraPermissions } from "expo-camera";
 
 // TODO render this in some kind of modal
 export const Camera = ({ setPhoto }: { setPhoto: (uri: string) => void }) => {

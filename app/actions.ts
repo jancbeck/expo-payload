@@ -8,9 +8,12 @@ export async function createPost({
   token,
 }: {
   title: string;
-  photo: string;
-  token: string;
+  photo?: string;
+  token: string | null | undefined;
 }) {
+  if (!token) {
+    return { isError: true, message: "Not logged in" };
+  }
   try {
     const payload = await getPayload();
     const user = await getUser(token);

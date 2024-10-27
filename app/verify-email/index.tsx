@@ -1,8 +1,9 @@
 import { Text, View } from "react-native";
 import { Link } from "expo-router";
+
 import { VerifyEmailForm } from "@/components/VerifyEmailForm";
 
-export default function VerifyEmail() {
+export default function VerifyEmailPage() {
   return (
     <View
       style={{

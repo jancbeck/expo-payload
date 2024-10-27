@@ -1,8 +1,9 @@
 import { Text, View } from "react-native";
 import { Link } from "expo-router";
+
 import { SignupForm } from "@/components/SignupForm";
 
-export default function SignUp() {
+export default function SignUpPage() {
   return (
     <View
       style={{

@@ -2,7 +2,8 @@
 
 import React, { useState } from "react";
 import { Pressable, View, Text, TextInput, StyleSheet } from "react-native";
-import { useRouter } from "expo-router";
+import { useRouter, Redirect } from "expo-router";
+
 import { useSession } from "@/components/Providers";
 
 export const LoginForm = () => {
@@ -11,6 +12,17 @@ export const LoginForm = () => {
   const [password, setPassword] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
+  const { session, isLoading } = useSession();
+
+  // You can keep the splash screen open, or render a loading screen like we do here.
+  if (isLoading) {
+    return <Text>Loading...</Text>;
+  }
+  if (session) {
+    // On web, static rendering will stop here as the user is not authenticated
+    // in the headless Node process that the pages are rendered in.
+    return <Redirect href="/app" />;
+  }
   return (
     <View style={styles.form}>
       <View style={styles.formGroup}>

@@ -2,12 +2,15 @@
 
 import React, { useState } from "react";
 import { Pressable, View, Text, TextInput, StyleSheet } from "react-native";
-import { Image } from "expo-image";
-import { createPost } from "@/app/actions";
-import { Camera } from "./Camera";
 import { useRouter } from "expo-router";
+import { Image } from "expo-image";
 
-export const CreatePostForm = ({ token }: { token: string }) => {
+import { createPost } from "@/app/actions";
+import { useSession } from "@/components/Providers";
+import { Camera } from "./Camera";
+
+export const CreatePostForm = () => {
+  const { session: token } = useSession();
   const [title, setTitle] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
