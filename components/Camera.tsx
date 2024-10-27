@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-    minHeight: 600,
+    backgroundColor: "#fafafa",
   },
   message: {
     textAlign: "center",

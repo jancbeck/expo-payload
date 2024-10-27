@@ -19,7 +19,10 @@ export const CreatePostForm = () => {
   return (
     <View style={styles.form}>
       {photo ? (
-        <Image source={{ uri: photo }} style={{ width: 100, height: 100 }} />
+        <Image
+          source={{ uri: photo }}
+          style={{ width: 300, height: 300, marginHorizontal: "auto" }}
+        />
       ) : (
         <Camera setPhoto={setPhoto} />
       )}
@@ -39,7 +42,7 @@ export const CreatePostForm = () => {
           setIsSubmitting(true);
           await createPost({ title, photo, token });
           setIsSubmitting(false);
-          router.reload();
+          router.push("/app");
         }}
       >
         <Text style={styles.buttonText}>Submit</Text>
@@ -50,20 +53,11 @@ export const CreatePostForm = () => {
 
 const styles = StyleSheet.create({
   form: {
-    display: "flex",
-    flexDirection: "column",
-    gap: 20,
-    minWidth: "100%",
-    marginHorizontal: "auto",
-    padding: 20,
-    borderWidth: 1,
-    borderColor: "#ccc",
-    borderRadius: 8,
-    backgroundColor: "#f9f9f9",
+    width: "100%",
+    flexGrow: 1,
   },
   formGroup: {},
   label: {
-    marginBottom: 8,
     fontWeight: "bold",
   },
   input: {
@@ -72,19 +66,13 @@ const styles = StyleSheet.create({
     borderColor: "#ccc",
     borderRadius: 4,
     fontSize: 16,
-  },
-  textarea: {
-    padding: 10,
-    borderWidth: 1,
-    borderColor: "#ccc",
-    borderRadius: 4,
-    fontSize: 16,
-    minHeight: 100,
+    marginBottom: 20,
   },
   button: {
     padding: 10,
     borderRadius: 4,
     backgroundColor: "#007bff",
+    marginBottom: 20,
   },
   buttonText: {
     color: "white",

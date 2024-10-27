@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { Pressable, View, Text, TextInput, StyleSheet } from "react-native";
-import { useRouter, Redirect } from "expo-router";
+import { useRouter, Redirect, Link } from "expo-router";
 
 import { useSession } from "@/components/Providers";
 
@@ -65,6 +65,19 @@ export const LoginForm = () => {
       >
         <Text style={styles.buttonText}>Login</Text>
       </Pressable>
+      <Link
+        href="/signup"
+        style={{
+          width: "100%",
+          padding: 10,
+          borderRadius: 4,
+          backgroundColor: "#f7f7f7",
+          textAlign: "center",
+          fontSize: 16,
+        }}
+      >
+        <Text>Signup</Text>
+      </Link>
     </View>
   );
 };
