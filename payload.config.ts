@@ -1,4 +1,5 @@
 import { postgresAdapter } from "@payloadcms/db-postgres";
+import { resendAdapter } from "@payloadcms/email-resend";
 import { uploadthingStorage } from "@payloadcms/storage-uploadthing";
 import { buildConfig } from "payload";
 import { Admins } from "@/collections/Admins";
@@ -20,6 +21,11 @@ export default buildConfig({
   admin: {
     user: "admins",
   },
+  email: resendAdapter({
+    defaultFromAddress: "dev@payloadcms.com",
+    defaultFromName: "Payload CMS",
+    apiKey: process.env.RESEND_API_KEY || "",
+  }),
   plugins: [
     uploadthingStorage({
       collections: {

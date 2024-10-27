@@ -14,13 +14,18 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.jancbeck.expopayload"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO"
+      ]
     },
     "web": {
       "bundler": "metro",
@@ -40,6 +45,12 @@
     "experiments": {
       "typedRoutes": true,
       "reactServerComponents": true
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "452b4a44-f0e4-41f9-94d8-acfa26bc91ae"
+      }
+    },
+    "owner": "jancbeck"
   }
 }
