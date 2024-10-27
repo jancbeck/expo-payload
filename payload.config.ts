@@ -22,7 +22,7 @@ export default buildConfig({
     user: "admins",
   },
   email: resendAdapter({
-    defaultFromAddress: "dev@payloadcms.com",
+    defaultFromAddress: "delivered@resend.dev",
     defaultFromName: "Payload CMS",
     apiKey: process.env.RESEND_API_KEY || "",
   }),

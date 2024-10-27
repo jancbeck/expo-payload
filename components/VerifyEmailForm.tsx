@@ -1,38 +1,23 @@
-import React, { useState } from "react";
-import { signup } from "@/app/actions";
-import { Pressable, View, Text, TextInput, StyleSheet } from "react-native";
-import { useRouter } from "expo-router";
+"use client";
 
-export const SignupForm = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+import React, { useState } from "react";
+import { Text, View, TextInput, StyleSheet, Pressable } from "react-native";
+import { useRouter } from "expo-router";
+import { verifyEmail } from "@/app/actions";
+
+export const VerifyEmailForm = () => {
+  const [token, setToken] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
-
   return (
     <View style={styles.form}>
       <View style={styles.formGroup}>
-        <Text style={styles.label}>Email</Text>
+        <Text style={styles.label}>Token</Text>
         <TextInput
           style={styles.input}
-          value={email}
-          onChangeText={(text) => setEmail(text)}
-          placeholder="Email"
-          autoCapitalize="none"
-          autoComplete="email"
-          inputMode="email"
-          submitBehavior="blurAndSubmit"
-        />
-      </View>
-      <View style={styles.formGroup}>
-        <Text style={styles.label}>Password</Text>
-        <TextInput
-          style={styles.input}
-          value={password}
-          onChangeText={(text) => setPassword(text)}
-          placeholder="Content"
+          value={token}
+          onChangeText={(text) => setToken(text)}
           autoComplete="off"
-          secureTextEntry
         />
       </View>
       <Pressable
@@ -40,16 +25,16 @@ export const SignupForm = () => {
         disabled={isSubmitting}
         onPress={async () => {
           setIsSubmitting(true);
-          const result = await signup({ email, password });
+          const result = await verifyEmail(token);
           setIsSubmitting(false);
           if (result.isError) {
             console.error(result.message);
           } else {
-            router.push("/verify-email");
+            router.push("/");
           }
         }}
       >
-        <Text style={styles.buttonText}>Sign up</Text>
+        <Text style={styles.buttonText}>Verify</Text>
       </Pressable>
     </View>
   );

@@ -78,17 +78,27 @@ export async function signup({
   password: string;
 }) {
   const payload = await getPayload();
-  // TODO: add checks for existing user and email validation
+  // TODO: add checks for existing user
   const author = await payload.create({
     collection: "authors",
     data: {
       email,
       password,
     },
-    disableVerificationEmail: true,
+    disableVerificationEmail: false,
   });
   if (!author) {
     return { isError: true, message: "Invalid credentials" };
   }
   return { ok: true };
+}
+
+export async function verifyEmail(token: string) {
+  const payload = await getPayload();
+  try {
+    await payload.verifyEmail({ collection: "authors", token });
+    return { ok: true };
+  } catch (error) {
+    return { isError: true, message: "Invalid token" };
+  }
 }

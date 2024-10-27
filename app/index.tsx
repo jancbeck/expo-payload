@@ -3,6 +3,7 @@ import { Text, View, Image } from "react-native";
 import { getPayload } from "@/lib/payload";
 import { Form } from "@/components/Forms";
 import { generateURL } from "@/lib/ut";
+import { Link } from "expo-router";
 
 export default function HomePage() {
   return (
@@ -14,6 +15,9 @@ export default function HomePage() {
         <Posts />
       </Suspense>
       <Form />
+      <Link href="/verify-email">
+        <Text>Verify email</Text>
+      </Link>
     </View>
   );
 }
