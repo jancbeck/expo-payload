@@ -3,6 +3,7 @@
 import { useState, useRef } from "react";
 import { Button, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { CameraView, CameraType, useCameraPermissions } from "expo-camera";
+import * as FileSystem from "expo-file-system";
 
 // TODO render this in some kind of modal
 export const Camera = ({ setPhoto }: { setPhoto: (uri: string) => void }) => {
@@ -18,8 +19,17 @@ export const Camera = ({ setPhoto }: { setPhoto: (uri: string) => void }) => {
   async function takePhoto() {
     if (cameraRef.current) {
       const photo = await cameraRef.current.takePictureAsync();
+
       if (photo?.base64) {
+        // photo is already base64 encoded on the web
         setPhoto(photo.base64);
+      } else if (photo?.uri) {
+        // on native we need to read the file as base64
+        // maybe we can keep the uri and convert it only before submitting to the server?
+        const base64 = await FileSystem.readAsStringAsync(photo.uri, {
+          encoding: FileSystem.EncodingType.Base64,
+        });
+        setPhoto(`data:image/jpeg;base64,${base64}`);
       }
     }
   }
