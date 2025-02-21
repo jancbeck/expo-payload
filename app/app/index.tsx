@@ -1,3 +1,5 @@
+/// <reference types="react/canary" />
+
 import { Suspense } from "react";
 import { Text, View, Image } from "react-native";
 
