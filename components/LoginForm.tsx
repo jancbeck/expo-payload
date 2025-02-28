@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { Pressable, View, Text, TextInput, StyleSheet } from "react-native";
 import { useRouter, Redirect, Link } from "expo-router";
-
+import { Input, InputField } from "@/components/ui/input";
 import { useSession } from "@/components/Providers";
 
 export const LoginForm = () => {
@@ -27,16 +27,18 @@ export const LoginForm = () => {
     <View style={styles.form}>
       <View style={styles.formGroup}>
         <Text style={styles.label}>Email</Text>
-        <TextInput
-          style={styles.input}
-          value={email}
-          onChangeText={(text) => setEmail(text)}
-          placeholder="Email"
-          autoCapitalize="none"
-          autoComplete="email"
-          inputMode="email"
-          submitBehavior="blurAndSubmit"
-        />
+        <Input>
+          <InputField
+            style={styles.input}
+            value={email}
+            onChangeText={(text) => setEmail(text)}
+            placeholder="Email"
+            autoCapitalize="none"
+            autoComplete="email"
+            inputMode="email"
+            submitBehavior="blurAndSubmit"
+          />
+        </Input>
       </View>
       <View style={styles.formGroup}>
         <Text style={styles.label}>Password</Text>

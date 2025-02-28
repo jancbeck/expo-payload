@@ -4,4 +4,10 @@
       "path": ".",
     },
   ],
+
+  "settings": {
+    "tailwindCSS.experimental.classRegex": [
+      ["tva\\((([^()]*|\\([^()]*\\))*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
+    ],
+  },
 }
