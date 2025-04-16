@@ -1,6 +1,5 @@
 import { postgresAdapter } from "@payloadcms/db-postgres";
 import { resendAdapter } from "@payloadcms/email-resend";
-import { uploadthingStorage } from "@payloadcms/storage-uploadthing";
 import { buildConfig } from "payload";
 import { Admins } from "@/collections/Admins";
 import { Authors } from "@/collections/Authors";
@@ -26,15 +25,4 @@ export default buildConfig({
     defaultFromName: "Payload CMS",
     apiKey: process.env.RESEND_API_KEY || "",
   }),
-  plugins: [
-    uploadthingStorage({
-      collections: {
-        posts: true,
-      },
-      options: {
-        apiKey: process.env.UPLOADTHING_SECRET,
-        acl: "public-read",
-      },
-    }),
-  ],
 });

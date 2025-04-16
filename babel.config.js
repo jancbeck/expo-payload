@@ -4,7 +4,7 @@ module.exports = function (api) {
     presets: ["babel-preset-expo"],
     overrides: [
       {
-        test: [/@payloadcms/, /payload/, /prettier/],
+        test: [/@payloadcms/, /payload/, /prettier/, /uploadthing/],
         plugins: [
           "babel-plugin-transform-import-meta",
           "module:@reactioncommerce/babel-remove-es-create-require",

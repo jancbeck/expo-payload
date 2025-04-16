@@ -10,11 +10,13 @@ export const SignupForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState("");
   const router = useRouter();
 
   return (
     <View style={styles.form}>
-      <View style={styles.formGroup}>
+      <Text style={styles.error}>{error}</Text>
+      <View>
         <Text style={styles.label}>Email</Text>
         <TextInput
           style={styles.input}
@@ -45,9 +47,8 @@ export const SignupForm = () => {
           setIsSubmitting(true);
           const result = await createUser({ email, password });
           setIsSubmitting(false);
-          if (result.isError) {
-            console.error(result.message);
-          } else {
+          setError(result.message || "");
+          if (!result.isError) {
             router.push("/verify-email");
           }
         }}
@@ -71,7 +72,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     backgroundColor: "#f9f9f9",
   },
-  formGroup: {},
+  error: { color: "red", fontSize: 16, marginBottom: 10 },
   label: {
     marginBottom: 8,
     fontWeight: "bold",
