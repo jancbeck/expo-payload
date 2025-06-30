@@ -5,7 +5,7 @@ import { Pressable, View, Text, TextInput, StyleSheet } from "react-native";
 import { useRouter } from "expo-router";
 import { Image } from "expo-image";
 
-import { createPost } from "@/app/actions";
+import { createPost } from "@/actions/auth";
 import { useSession } from "@/components/Providers";
 import { Camera } from "./Camera";
 

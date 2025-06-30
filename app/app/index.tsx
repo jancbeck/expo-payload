@@ -1,10 +1,8 @@
-/// <reference types="react/canary" />
-
 import { Suspense } from "react";
 import { Text, View, Image } from "react-native";
 
 import { Logout } from "@/components/LogoutForm";
-import { getPayload } from "@/lib/payload";
+import { getPayload } from "@/actions/payload";
 import { generateURL } from "@/lib/ut";
 import { Link } from "expo-router";
 

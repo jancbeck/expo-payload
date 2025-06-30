@@ -5,6 +5,11 @@ const path = require("path");
 /** @type {import('expo/metro-config').MetroConfig} */
 const config = getDefaultConfig(__dirname);
 
+config.transformer.experimentalImportBundleSupport = true;
+config.transformer.asyncRequireModulePath = require.resolve(
+  "@expo/metro-runtime/async-require",
+);
+
 // Add a custom resolver for the uuid package
 config.resolver.extraNodeModules = {
   ...config.resolver.extraNodeModules,
@@ -20,6 +25,7 @@ config.resolver.resolveRequest = (context, moduleName, platform) => {
       type: "sourceFile",
     };
   }
+  if (moduleName === "node:sqlite") return { type: "empty" };
 
   // Let the default resolver handle everything else
   return context.resolveRequest(context, moduleName, platform);

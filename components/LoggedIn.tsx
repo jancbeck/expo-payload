@@ -1,12 +1,13 @@
 "use client";
 
 import { Text } from "react-native";
-import { Redirect } from "expo-router";
+import { useRouter } from "expo-router";
 
 import { useSession } from "@/components/Providers";
 
 export function LoggedIn({ children }: { children: React.ReactNode }) {
   const { session, isLoading } = useSession();
+  const router = useRouter();
 
   // You can keep the splash screen open, or render a loading screen like we do here.
   if (isLoading) {
@@ -18,7 +19,7 @@ export function LoggedIn({ children }: { children: React.ReactNode }) {
   if (!session) {
     // On web, static rendering will stop here as the user is not authenticated
     // in the headless Node process that the pages are rendered in.
-    return <Redirect href="/" />;
+    router.push("/");
   }
 
   // This layout can be deferred because it's not the root layout.

@@ -7,19 +7,19 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
 1. Install dependencies
 
    ```bash
-   nvm install
+   nvm install & nvm use
    bun install
    ```
 
-2. Add environment variables to `.env` (duplicate `.env.example`). `DATABASE_URI` and `PAYLOAD_SECRET` are required. To enable email verification and uploads, add your API keys for [resend](https://resend.com/emails) and [uploadthing](https://uploadthing.com/). You can use any other [email](https://payloadcms.com/docs/beta/email/overview) or [storage adapters](https://payloadcms.com/docs/beta/upload/storage-adapters) but these two offer free tiers and work well serverless.
-3. Start and seed database
+1. Add environment variables to `.env` (duplicate `.env.example`). `DATABASE_URI` and `PAYLOAD_SECRET` are required. To enable email verification and uploads, add your API keys for [resend](https://resend.com/emails) and [uploadthing](https://uploadthing.com/). You can use any other [email](https://payloadcms.com/docs/beta/email/overview) or [storage adapters](https://payloadcms.com/docs/beta/upload/storage-adapters) but these two offer free tiers and work well serverless.
+1. Start and seed database
 
    ```bash
    docker compose up
    bunx --bun payload run scripts/seed.ts --email=mail@test.com --password=pass -- --disable-transpile
    ```
 
-4. Start the app
+1. Start the app
 
    ```bash
    bun start

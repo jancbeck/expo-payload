@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { Pressable, View, Text, TextInput, StyleSheet } from "react-native";
 import { useRouter } from "expo-router";
 
-import { createUser } from "@/app/actions";
+import { createUser } from "@/actions/auth";
 
 export const SignupForm = () => {
   const [email, setEmail] = useState("");
@@ -72,6 +72,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     backgroundColor: "#f9f9f9",
   },
+  formGroup: { minWidth: "100%" },
   error: { color: "red", fontSize: 16, marginBottom: 10 },
   label: {
     marginBottom: 8,

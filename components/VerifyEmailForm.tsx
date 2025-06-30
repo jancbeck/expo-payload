@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { Text, View, TextInput, StyleSheet, Pressable } from "react-native";
 import { useRouter } from "expo-router";
 
-import { verifyEmail } from "@/app/actions";
+import { verifyEmail } from "@/actions/auth";
 
 export const VerifyEmailForm = () => {
   const [token, setToken] = useState("");

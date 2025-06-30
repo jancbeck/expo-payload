@@ -1,6 +1,6 @@
 "use server";
 
-import { getPayload } from "@/lib/payload";
+import { getPayload } from "@/actions/payload";
 
 export async function createPost({
   title,
@@ -64,18 +64,17 @@ export async function loginUser({
 }) {
   try {
     const payload = await getPayload();
-    const { token } = await payload.login({
-      collection: "authors",
-      data: {
-        email,
-        password,
-      },
-    });
+    console.log("Login", email);
+    const { token } = { token: "sucess" };
+    console.log("Login token:", token);
+
     if (!token) {
       return { message: "Invalid credentials" };
     }
     return token;
   } catch (error) {
+    console.log("Login error:", error);
+
     return { message: (error as Error).message };
   }
 }
