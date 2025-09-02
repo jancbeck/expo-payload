@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { Pressable, View, Text, TextInput, StyleSheet } from "react-native";
 import { useRouter } from "expo-router";
 
-import { createUser } from "@/app/actions";
+import { createUser } from "@/lib/actions";
 
 export const SignupForm = () => {
   const [email, setEmail] = useState("");

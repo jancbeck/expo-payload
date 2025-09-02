@@ -1,12 +1,9 @@
-/// <reference types="react/canary" />
-
 import { Suspense } from "react";
-import { Text, View, Image } from "react-native";
+import { Text, View } from "react-native";
 
 import { Logout } from "@/components/LogoutForm";
-import { getPayload } from "@/lib/payload";
-import { generateURL } from "@/lib/ut";
 import { Link } from "expo-router";
+import { renderPosts } from "@/components/renderPosts";
 
 export default function HomePage() {
   return (
@@ -19,9 +16,7 @@ export default function HomePage() {
       }}
     >
       <View>
-        <Suspense fallback={<Text>Loading...</Text>}>
-          <Posts />
-        </Suspense>
+        <Suspense fallback={<Text>Loading...</Text>}>{renderPosts()}</Suspense>
         <Link
           href="/app/create"
           style={{
@@ -39,30 +34,6 @@ export default function HomePage() {
         </Link>
         <Logout />
       </View>
-    </View>
-  );
-}
-
-async function Posts() {
-  const payload = await getPayload();
-  const { docs } = await payload.find({
-    collection: "posts",
-  });
-  return !!docs.length ? (
-    docs.map((post) => (
-      <View style={{ flexGrow: 1 }}>
-        <Text key={post.id}>{post.title ?? "No title"}</Text>
-        {post.url && (
-          <Image
-            source={{ uri: generateURL(post) }}
-            style={{ width: 100, height: 100 }}
-          />
-        )}
-      </View>
-    ))
-  ) : (
-    <View>
-      <Text style={{ textAlign: "center" }}>No posts yet.</Text>
     </View>
   );
 }

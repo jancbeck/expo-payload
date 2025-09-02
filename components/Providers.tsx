@@ -3,7 +3,7 @@
 import { useContext, createContext, type PropsWithChildren } from "react";
 
 import { useStorageState } from "@/lib/useStorageState";
-import { loginUser } from "@/app/actions";
+import { loginUser } from "@/lib/actions";
 
 const AuthContext = createContext<{
   login: ({
