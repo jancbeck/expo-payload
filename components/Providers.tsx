@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { useContext, createContext, type PropsWithChildren } from "react";
+import { useContext, createContext, type PropsWithChildren } from 'react';
 
-import { useStorageState } from "@/lib/useStorageState";
-import { loginUser } from "@/lib/actions";
+import { useStorageState } from '@/lib/useStorageState';
+import { loginUser } from '@/lib/actions';
 
 const AuthContext = createContext<{
   login: ({
@@ -26,9 +26,9 @@ const AuthContext = createContext<{
 // This hook can be used to access the user info.
 export function useSession() {
   const value = useContext(AuthContext);
-  if (process.env.NODE_ENV !== "production") {
+  if (process.env.NODE_ENV !== 'production') {
     if (!value) {
-      throw new Error("useSession must be wrapped in a <SessionProvider />");
+      throw new Error('useSession must be wrapped in a <SessionProvider />');
     }
   }
 
@@ -36,14 +36,14 @@ export function useSession() {
 }
 
 export function SessionProvider({ children }: PropsWithChildren) {
-  const [[isLoading, session], setSession] = useStorageState("session");
+  const [[isLoading, session], setSession] = useStorageState('session');
 
   return (
     <AuthContext.Provider
       value={{
         login: async ({ email, password }) => {
           const successOrError = await loginUser({ email, password });
-          if (typeof successOrError === "string") {
+          if (typeof successOrError === 'string') {
             setSession(successOrError);
             return true;
           } else {

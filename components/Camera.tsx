@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import { useState, useRef } from "react";
-import { Button, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { CameraView, CameraType, useCameraPermissions } from "expo-camera";
-import * as FileSystem from "expo-file-system/legacy";
+import { useState, useRef } from 'react';
+import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { CameraView, CameraType, useCameraPermissions } from 'expo-camera';
+import * as FileSystem from 'expo-file-system/legacy';
 
 // TODO render this in some kind of modal
 export const Camera = ({ setPhoto }: { setPhoto: (uri: string) => void }) => {
-  const [facing, setFacing] = useState<CameraType>("back");
+  const [facing, setFacing] = useState<CameraType>('back');
   const [permission, requestPermission] = useCameraPermissions();
   const cameraRef = useRef<CameraView>(null);
 
@@ -47,7 +47,7 @@ export const Camera = ({ setPhoto }: { setPhoto: (uri: string) => void }) => {
   }
 
   function toggleCameraFacing() {
-    setFacing((current) => (current === "back" ? "front" : "back"));
+    setFacing((current) => (current === 'back' ? 'front' : 'back'));
   }
 
   return (
@@ -66,31 +66,31 @@ export const Camera = ({ setPhoto }: { setPhoto: (uri: string) => void }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    backgroundColor: "#fafafa",
+    justifyContent: 'center',
+    backgroundColor: '#fafafa',
   },
   message: {
-    textAlign: "center",
+    textAlign: 'center',
     paddingBottom: 10,
   },
   camera: {
     flex: 1,
-    backgroundColor: "black",
+    backgroundColor: 'black',
   },
   buttonContainer: {
     flex: 1,
-    flexDirection: "row",
-    backgroundColor: "transparent",
+    flexDirection: 'row',
+    backgroundColor: 'transparent',
     margin: 64,
   },
   button: {
     flex: 1,
-    alignSelf: "flex-end",
-    alignItems: "center",
+    alignSelf: 'flex-end',
+    alignItems: 'center',
   },
   text: {
     fontSize: 24,
-    fontWeight: "bold",
-    color: "white",
+    fontWeight: 'bold',
+    color: 'white',
   },
 });

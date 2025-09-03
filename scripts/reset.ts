@@ -1,8 +1,8 @@
-import type { DrizzleAdapter } from "@payloadcms/drizzle/dist/types";
-import type { Payload } from "payload";
+import type { DrizzleAdapter } from '@payloadcms/drizzle/dist/types';
+import type { Payload } from 'payload';
 
 export async function resetDB(_payload: Payload) {
-  if ("drizzle" in _payload.db) {
+  if ('drizzle' in _payload.db) {
     const db = _payload.db as unknown as DrizzleAdapter;
 
     // Alternative to: await db.drizzle.execute(sql`drop schema public cascade; create schema public;`)
@@ -16,9 +16,9 @@ export async function resetDB(_payload: Payload) {
 
     const queries = Object.values(schema)
       .map((table: any) => {
-        return `DELETE FROM ${db.schemaName ? db.schemaName + "." : ""}${table.dbName};`;
+        return `DELETE FROM ${db.schemaName ? db.schemaName + '.' : ''}${table.dbName};`;
       })
-      .join("");
+      .join('');
 
     await db.execute({
       drizzle: db.drizzle,

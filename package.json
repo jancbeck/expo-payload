@@ -11,6 +11,7 @@
     "test": "jest __tests__ --watchAll",
     "lint": "expo lint",
     "lint:fix": "expo lint --fix",
+    "prettier:write": "prettier --write .",
     "seed:reset": "bunx --bun payload run scripts/seed.ts -- --disable-transpile",
     "generate:types": "bunx --bun payload generate:types --disable-transpile"
   },

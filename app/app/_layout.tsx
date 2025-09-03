@@ -1,6 +1,6 @@
-import { Slot } from "expo-router";
+import { Slot } from 'expo-router';
 
-import { LoggedIn } from "@/components/LoggedIn";
+import { LoggedIn } from '@/components/LoggedIn';
 
 export default function AppLayout() {
   return (
