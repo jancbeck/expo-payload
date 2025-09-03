@@ -16,6 +16,8 @@ config.resolver.resolveRequest = (context, moduleName, platform) => {
     };
   }
 
+  if (moduleName === 'node:sqlite') return { type: 'empty' };
+
   // Let the default resolver handle everything else
   return context.resolveRequest(context, moduleName, platform);
 };
