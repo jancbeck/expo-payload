@@ -10,6 +10,7 @@
     "web": "expo start --web",
     "test": "jest --watchAll",
     "lint": "expo lint",
+    "lint:fix": "expo lint --fix",
     "seed:reset": "bunx --bun payload run scripts/seed.ts -- --disable-transpile",
     "generate:types": "bunx --bun payload generate:types --disable-transpile"
   },
@@ -58,9 +59,13 @@
     "@types/react": "~19.1.10",
     "@types/react-test-renderer": "^18.3.0",
     "babel-plugin-transform-import-meta": "^2.2.1",
+    "eslint": "^9.0.0",
+    "eslint-config-expo": "~10.0.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.4",
     "jest": "^29.2.1",
     "jest-expo": "~54.0.5",
-    "prettier": "^3.3.3",
+    "prettier": "^3.6.2",
     "react-test-renderer": "18.3.1",
     "typescript": "~5.9.2"
   },
