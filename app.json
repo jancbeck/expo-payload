@@ -7,7 +7,6 @@
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "userInterfaceStyle": "automatic",
-    "newArchEnabled": true,
     "splash": {
       "image": "./assets/images/splash.png",
       "resizeMode": "contain",
@@ -42,9 +41,7 @@
           "recordAudioAndroid": true
         }
       ],
-      "expo-secure-store",
-      "expo-font",
-      "expo-web-browser"
+      "expo-secure-store"
     ],
     "experiments": {
       "typedRoutes": true,
