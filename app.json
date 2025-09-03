@@ -49,7 +49,7 @@
     "experiments": {
       "typedRoutes": true,
       "reactServerFunctions": true,
-      "reactServerComponentRoutes": false
+      "reactServerComponentRoutes": true
     },
     "extra": {
       "eas": {
