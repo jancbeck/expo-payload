@@ -1,8 +1,10 @@
 'use client';
 
-import { use, createContext, type PropsWithChildren } from 'react';
-import { useStorageState } from '@/lib/useStorageState';
-import { loginUser } from '@/lib/actions';
+import { use, createContext, type PropsWithChildren, useState } from 'react';
+import { authClient } from '@/lib/auth-client';
+import { useRouter } from 'expo-router';
+
+export type Session = typeof authClient.$Infer.Session;
 
 const AuthContext = createContext<{
   login: ({
@@ -11,13 +13,23 @@ const AuthContext = createContext<{
   }: {
     email: string;
     password: string;
-  }) => Promise<true | { message: string }>;
+  }) => Promise<void>;
   logout: () => void;
-  session?: string | null;
+  signUp: ({
+    name,
+    email,
+    password,
+  }: {
+    name: string;
+    email: string;
+    password: string;
+  }) => Promise<void>;
+  session?: Session | null;
   isLoading: boolean;
 }>({
-  login: () => Promise.resolve({ message: 'N/A' }),
+  login: () => Promise.resolve(),
   logout: () => null,
+  signUp: () => Promise.resolve(),
   session: null,
   isLoading: false,
 });
@@ -33,22 +45,44 @@ export function useSession() {
 }
 
 export function SessionProvider({ children }: PropsWithChildren) {
-  const [[isLoading, session], setSession] = useStorageState('session');
+  const [isLoading, setIsLoading] = useState(false);
+
+  const { data: session } = authClient.useSession();
+  const router = useRouter();
 
   return (
     <AuthContext
       value={{
         login: async ({ email, password }) => {
-          const successOrError = await loginUser({ email, password });
-          if (typeof successOrError === 'string') {
-            setSession(successOrError);
-            return true;
-          } else {
-            return successOrError;
+          setIsLoading(true);
+          const { data, error } = await authClient.signIn.email({
+            email,
+            password,
+          });
+          setIsLoading(false);
+          if (data?.user.id && !error) {
+            router.push('/(app)');
           }
+          console.log({ data, error });
         },
-        logout: () => {
-          setSession(null);
+        logout: async () => {
+          setIsLoading(true);
+          await authClient.signOut();
+          setIsLoading(false);
+          router.push('/');
+        },
+        signUp: async ({ name, email, password }) => {
+          setIsLoading(true);
+          const { data, error } = await authClient.signUp.email({
+            name,
+            email,
+            password,
+          });
+          setIsLoading(false);
+          if (data?.user.id && !error) {
+            router.push('/(app)');
+          }
+          console.log({ data, error });
         },
         session,
         isLoading,

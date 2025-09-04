@@ -28,11 +28,16 @@
       "package": "com.jancbeck.expopayload"
     },
     "web": {
-      "bundler": "metro",
+      "output": "server",
       "favicon": "./assets/images/favicon.png"
     },
     "plugins": [
-      "expo-router",
+      [
+        "expo-router",
+        {
+          "unstable_useServerMiddleware": true
+        }
+      ],
       [
         "expo-camera",
         {
@@ -41,12 +46,14 @@
           "recordAudioAndroid": true
         }
       ],
-      "expo-secure-store"
+      "expo-secure-store",
+      "expo-web-browser"
     ],
     "experiments": {
       "typedRoutes": true,
       "reactServerFunctions": true,
-      "reactServerComponentRoutes": true
+      "reactServerComponentRoutes": true,
+      "reactCompiler": true
     },
     "extra": {
       "eas": {

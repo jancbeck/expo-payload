@@ -29,8 +29,14 @@ This project showcases the cutting-edge integration of [React Server Components]
 1. **Database setup**
 
    ```bash
+   # start db containers
    docker compose up
+
+   # seed db with admin
    bunx --bun payload run scripts/seed.ts --email=mail@test.com --password=pass -- --disable-transpile
+
+   # create better auth tables
+   bun migrate:auth
    ```
 
 1. **Start development**

@@ -1,6 +1,16 @@
 'use server';
 
 import { getPayload } from '@/lib/payload';
+import { auth } from '@/lib/auth';
+
+const getUserRole = (role: string | null | undefined) => {
+  if (role?.includes('admin')) {
+    return 'admin';
+  }
+  if (role?.includes('user')) {
+    return 'user';
+  }
+};
 
 export async function createPost({
   title,
@@ -35,7 +45,7 @@ export async function createPost({
       collection: 'posts',
       data: {
         title,
-        author: user.id,
+        user: user.id,
       },
       file,
       user,
@@ -46,73 +56,27 @@ export async function createPost({
   }
 }
 
-export async function getUser(token: string) {
+export async function getUser(authCookie: string) {
   const payload = await getPayload();
-  const headers = new Headers({
-    Authorization: `JWT ${token}`,
+  const session = await auth.api.getSession({
+    headers: new Headers({ Cookie: authCookie }),
   });
-  const { user } = await payload.auth({ headers });
-  return user;
-}
 
-export async function loginUser({
-  email,
-  password,
-}: {
-  email: string;
-  password: string;
-}) {
-  try {
-    const payload = await getPayload();
-    const { token } = await payload.login({
-      collection: 'authors',
-      data: {
-        email,
-        password,
+  const authId = session?.user.id;
+  if (!authId) return null;
+  const role = getUserRole(session.user.role);
+
+  const {
+    docs: [user],
+  } = await payload.find({
+    collection: 'users',
+    overrideAccess: true,
+    where: {
+      authId: {
+        equals: authId,
       },
-    });
-    if (!token) {
-      return { message: 'Invalid credentials' };
-    }
-    return token;
-  } catch (error) {
-    return { message: (error as Error).message };
-  }
-}
+    },
+  });
 
-export async function createUser({
-  email,
-  password,
-}: {
-  email: string;
-  password: string;
-}) {
-  try {
-    const payload = await getPayload();
-    // TODO: add checks for existing user
-    const author = await payload.create({
-      collection: 'authors',
-      data: {
-        email,
-        password,
-      },
-      disableVerificationEmail: false,
-    });
-    if (!author) {
-      return { isError: true, message: 'Invalid credentials' };
-    }
-    return { ok: true };
-  } catch (error) {
-    return { isError: true, message: (error as Error).message };
-  }
-}
-
-export async function verifyEmail(token: string) {
-  const payload = await getPayload();
-  try {
-    await payload.verifyEmail({ collection: 'authors', token });
-    return { ok: true };
-  } catch (error) {
-    return { isError: true, message: 'Invalid token' };
-  }
+  return user && role ? { ...user, collection: 'users', role } : null;
 }

@@ -2,12 +2,11 @@ import { postgresAdapter } from '@payloadcms/db-postgres';
 import { resendAdapter } from '@payloadcms/email-resend';
 import { uploadthingStorage } from '@payloadcms/storage-uploadthing';
 import { buildConfig } from 'payload';
-import { Admins } from '@/collections/Admins';
-import { Authors } from '@/collections/Authors';
-import { Posts } from '@/collections/Posts';
+import { Users } from './collections/Users';
+import { Posts } from './collections/Posts';
 
 export default buildConfig({
-  collections: [Admins, Authors, Posts],
+  collections: [Users, Posts],
   secret: process.env.PAYLOAD_SECRET || '',
   db: postgresAdapter({
     idType: 'uuid',
@@ -19,7 +18,7 @@ export default buildConfig({
     autoGenerate: process.env.NODE_ENV === 'development',
   },
   admin: {
-    user: 'admins',
+    user: Users.slug,
   },
   email: resendAdapter({
     defaultFromAddress: 'delivered@resend.dev',
@@ -32,7 +31,7 @@ export default buildConfig({
         posts: true,
       },
       options: {
-        apiKey: process.env.UPLOADTHING_SECRET,
+        token: process.env.UPLOADTHING_SECRET,
         acl: 'public-read',
       },
     }),

@@ -1,15 +1,25 @@
 'use server';
-import 'server-only';
 
 import { Text, View, Image } from 'react-native';
 
 import { getPayload } from '@/lib/payload';
 import { generateURL } from '@/lib/ut';
+import { getUser } from '@/lib/actions';
 
-export async function renderPosts() {
+export async function renderPosts({ authCookie }: { authCookie: string }) {
+  // doesn't seem to work due to issue with expo router unstable_headers function
+  // const user = await payload.auth({
+  //   headers: new Headers({ Cookie: authCookie }),
+  // });
+
+  const user = await getUser(authCookie);
+
   const payload = await getPayload();
   const { docs } = await payload.find({
     collection: 'posts',
+    // enforce authentication
+    user,
+    overrideAccess: false,
   });
   return !!docs.length ? (
     docs.map((post) => (
