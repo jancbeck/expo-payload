@@ -5,6 +5,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Architecture Overview
 
 This is an Expo React Native app with Payload CMS backend integration. The application combines:
+
 - **Frontend**: React Native app using Expo Router for navigation and file-based routing
 - **Backend**: Payload CMS with PostgreSQL database, email via Resend, and file storage via UploadThing
 - **Authentication**: JWT-based auth with email verification through Payload's built-in auth system
@@ -23,6 +24,7 @@ This is an Expo React Native app with Payload CMS backend integration. The appli
 ## Development Commands
 
 ### Database Setup
+
 ```bash
 # Start PostgreSQL database
 docker compose up
@@ -35,6 +37,7 @@ bun run seed:reset
 ```
 
 ### Development Server
+
 ```bash
 # Start Expo development server
 bun start
@@ -46,6 +49,7 @@ bun run web
 ```
 
 ### Type Generation
+
 ```bash
 # Generate Payload types (when server not running)
 bunx --bun payload generate:types --disable-transpile
@@ -55,6 +59,7 @@ bun run generate:types
 ```
 
 ### Testing & Quality
+
 ```bash
 # Run tests with Jest
 bun run test
@@ -66,6 +71,7 @@ bun run lint
 ## Project Structure
 
 ### App Routes (Expo Router)
+
 - `/app/_layout.tsx` - Root layout with SessionProvider
 - `/app/index.tsx` - Main home screen
 - `/app/app/` - Nested app routes
@@ -75,12 +81,15 @@ bun run lint
 - `/app/verify-email/index.tsx` - Email verification
 
 ### Payload Collections
+
 - `collections/Admins.ts` - Admin users with full auth
 - `collections/Authors.ts` - App users with email verification
 - `collections/Posts.ts` - Posts with image upload and author relationship
 
 ### Server Actions
+
 `app/actions.ts` contains server-side functions:
+
 - `createPost()` - Creates posts with optional photo upload
 - `loginUser()` - Authenticates authors
 - `createUser()` - Registers new authors
@@ -88,6 +97,7 @@ bun run lint
 - `getUser()` - Gets user from JWT token
 
 ### Key Components
+
 - `components/Providers.tsx` - Session and context providers
 - `components/Camera.tsx` - Camera functionality for photo capture
 - `components/CreatePostForm.tsx` - Post creation form

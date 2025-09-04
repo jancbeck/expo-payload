@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { Text } from "react-native";
-import { useRouter } from "expo-router";
+import { Text } from 'react-native';
+import { useRouter } from 'expo-router';
 
-import { useSession } from "@/components/Providers";
-import { useEffect } from "react";
+import { useSession } from '@/components/Providers';
+import { useEffect } from 'react';
 
 export function LoggedIn({ children }: { children: React.ReactNode }) {
   const { session, isLoading } = useSession();
@@ -16,7 +16,7 @@ export function LoggedIn({ children }: { children: React.ReactNode }) {
     if (!session) {
       // On web, static rendering will stop here as the user is not authenticated
       // in the headless Node process that the pages are rendered in.
-      return router.push("/");
+      return router.push('/');
     }
   });
 

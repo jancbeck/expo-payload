@@ -1,20 +1,20 @@
-"use server";
-import "server-only";
+'use server';
+import 'server-only';
 
-import { Text, View, Image } from "react-native";
+import { Text, View, Image } from 'react-native';
 
-import { getPayload } from "@/lib/payload";
-import { generateURL } from "@/lib/ut";
+import { getPayload } from '@/lib/payload';
+import { generateURL } from '@/lib/ut';
 
 export async function renderPosts() {
   const payload = await getPayload();
   const { docs } = await payload.find({
-    collection: "posts",
+    collection: 'posts',
   });
   return !!docs.length ? (
     docs.map((post) => (
       <View key={post.id}>
-        <Text>{post.title || "No title"}</Text>
+        <Text>{post.title || 'No title'}</Text>
         {post.url && (
           <Image
             source={{ uri: generateURL(post) }}
@@ -25,7 +25,7 @@ export async function renderPosts() {
     ))
   ) : (
     <View>
-      <Text style={{ textAlign: "center" }}>No posts yet.</Text>
+      <Text style={{ textAlign: 'center' }}>No posts yet.</Text>
     </View>
   );
 }

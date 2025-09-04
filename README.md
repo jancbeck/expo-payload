@@ -1,56 +1,67 @@
-# Welcome to your Expo app 👋
+# Cross-Platform Full-Stack Starter
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A demonstration of shared code between frontend and backend for web and native apps in a single codebase.
 
-## Get started
+This project showcases the cutting-edge integration of [React Server Components](https://react.dev/reference/rsc/server-components) with [Expo](https://expo.dev) and [Payload CMS](https://payloadcms.com), enabling code sharing between client and server across web and mobile platforms. With Expo's server-rendered views for React Native and Payload's Next.js-based headless CMS, you can now write end-to-end type-safe applications that run everywhere.
 
-1. Install dependencies
+## Architecture
+
+- **Frontend**: **[Expo](https://docs.expo.dev)** - Universal apps with server-rendered views (beta)
+- **Backend**: [**Payload CMS v3**](https://payloadcms.com) - Next.js-based headless CMS with type-safe configuration
+- **Database**: PostgreSQL with automatic schema generation
+- **Shared Code**: React Server Components enabling client/server code sharing
+- **Authentication**: JWT-based auth with email verification
+- **Storage & Email**: UploadThing and Resend integrations
+
+## Quick Start
+
+1. **Install dependencies**
 
    ```bash
    nvm install
    bun install
    ```
 
-2. Add environment variables to `.env` (duplicate `.env.example`). `DATABASE_URI` and `PAYLOAD_SECRET` are required. To enable email verification and uploads, add your API keys for [resend](https://resend.com/emails) and [uploadthing](https://uploadthing.com/). You can use any other [email](https://payloadcms.com/docs/beta/email/overview) or [storage adapters](https://payloadcms.com/docs/beta/upload/storage-adapters) but these two offer free tiers and work well serverless.
-3. Start and seed database
+1. **Environment setup**
+
+   Add environment variables to `.env` (duplicate `.env.example`). `DATABASE_URI` and `PAYLOAD_SECRET` are required. To enable email verification and uploads, add your API keys for [resend](https://resend.com/emails) and [uploadthing](https://uploadthing.com/). You can use any other [email](https://payloadcms.com/docs/beta/email/overview) or [storage adapters](https://payloadcms.com/docs/beta/upload/storage-adapters) but these two offer free tiers and work well serverless.
+
+1. **Database setup**
 
    ```bash
    docker compose up
    bunx --bun payload run scripts/seed.ts --email=mail@test.com --password=pass -- --disable-transpile
    ```
 
-4. Start the app
+1. **Start development**
 
    ```bash
    bun start
    ```
 
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-iOS Simulator does not support taking camera images.
-
-## Developing
-
-### Payload
-
-[Generate types](https://payloadcms.com/docs/beta/typescript/generating-types) (when server is not running)
+## Development
 
 ```bash
-   bunx --bun payload generate:types --disable-transpile
+# Generate types (when server not running)
+bun run generate:types
+
+# Run tests
+bun run test
+
+# Lint code
+bun run lint
 ```
 
-### Expo
+`bun start` presents several options to open the app in
 
-Payload will automatically generate types for you when making changes to your collections when your dev server is running.
+- [a development build](https://docs.expo.dev/develop/development-builds/introduction/)
+- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
+- [iOS simulator (does not support camera)](https://docs.expo.dev/workflow/ios-simulator/)
+- [Expo Go](https://expo.dev/go), a limited sandbox but easy to setup
 
 ### Testing on iOS Device
 
-Follow expo instructions to [set up an iOS device with a development build](https://docs.expo.dev/get-started/set-up-your-environment/?platform=ios&device=physical&mode=development-build&buildEnv=local#set-up-an-ios-device-with-a-development-build).
+Follow expo instructions to set up an iOS device with a development build.
 
 If you have installed Xcode but get the error
 

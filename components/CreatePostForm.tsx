@@ -1,17 +1,17 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
-import { Pressable, View, Text, TextInput, StyleSheet } from "react-native";
-import { useRouter } from "expo-router";
-import { Image } from "expo-image";
+import React, { useState } from 'react';
+import { Pressable, View, Text, TextInput, StyleSheet } from 'react-native';
+import { useRouter } from 'expo-router';
+import { Image } from 'expo-image';
 
-import { createPost } from "@/lib/actions";
-import { useSession } from "@/components/Providers";
-import { Camera } from "./Camera";
+import { createPost } from '@/lib/actions';
+import { useSession } from '@/components/Providers';
+import { Camera } from './Camera';
 
 export const CreatePostForm = () => {
   const { session: token } = useSession();
-  const [title, setTitle] = useState("");
+  const [title, setTitle] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
   const [photo, setPhoto] = useState<string | undefined>(undefined);
@@ -21,7 +21,7 @@ export const CreatePostForm = () => {
       {photo ? (
         <Image
           source={{ uri: photo }}
-          style={{ width: 300, height: 300, marginHorizontal: "auto" }}
+          style={{ width: 300, height: 300, marginHorizontal: 'auto' }}
         />
       ) : (
         <Camera setPhoto={setPhoto} />
@@ -42,7 +42,7 @@ export const CreatePostForm = () => {
           setIsSubmitting(true);
           await createPost({ title, photo, token });
           setIsSubmitting(false);
-          router.push("/app");
+          router.push('/(app)');
         }}
       >
         <Text style={styles.buttonText}>Submit</Text>
@@ -53,17 +53,17 @@ export const CreatePostForm = () => {
 
 const styles = StyleSheet.create({
   form: {
-    width: "100%",
+    width: '100%',
     flexGrow: 1,
   },
   formGroup: {},
   label: {
-    fontWeight: "bold",
+    fontWeight: 'bold',
   },
   input: {
     padding: 10,
     borderWidth: 1,
-    borderColor: "#ccc",
+    borderColor: '#ccc',
     borderRadius: 4,
     fontSize: 16,
     marginBottom: 20,
@@ -71,11 +71,11 @@ const styles = StyleSheet.create({
   button: {
     padding: 10,
     borderRadius: 4,
-    backgroundColor: "#007bff",
+    backgroundColor: '#007bff',
     marginBottom: 20,
   },
   buttonText: {
-    color: "white",
+    color: 'white',
     fontSize: 16,
   },
 });

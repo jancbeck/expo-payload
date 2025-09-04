@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
-import { Pressable, View, Text, TextInput, StyleSheet } from "react-native";
-import { useRouter } from "expo-router";
+import React, { useState } from 'react';
+import { Pressable, View, Text, TextInput, StyleSheet } from 'react-native';
+import { useRouter } from 'expo-router';
 
-import { createUser } from "@/lib/actions";
+import { createUser } from '@/lib/actions';
 
 export const SignupForm = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
 
@@ -46,9 +46,9 @@ export const SignupForm = () => {
           const result = await createUser({ email, password });
           setIsSubmitting(false);
           if (result.isError) {
-            console.error(result.message);
+            alert(result.message);
           } else {
-            router.push("/verify-email");
+            router.push('/verify-email');
           }
         }}
       >
@@ -60,36 +60,36 @@ export const SignupForm = () => {
 
 const styles = StyleSheet.create({
   form: {
-    display: "flex",
-    flexDirection: "column",
+    display: 'flex',
+    flexDirection: 'column',
     gap: 20,
-    minWidth: "100%",
-    marginHorizontal: "auto",
+    minWidth: '100%',
+    marginHorizontal: 'auto',
     padding: 20,
     borderWidth: 1,
-    borderColor: "#ccc",
+    borderColor: '#ccc',
     borderRadius: 8,
-    backgroundColor: "#f9f9f9",
+    backgroundColor: '#f9f9f9',
   },
   formGroup: {},
   label: {
     marginBottom: 8,
-    fontWeight: "bold",
+    fontWeight: 'bold',
   },
   input: {
     padding: 10,
     borderWidth: 1,
-    borderColor: "#ccc",
+    borderColor: '#ccc',
     borderRadius: 4,
     fontSize: 16,
   },
   button: {
     padding: 10,
     borderRadius: 4,
-    backgroundColor: "#007bff",
+    backgroundColor: '#007bff',
   },
   buttonText: {
-    color: "white",
+    color: 'white',
     fontSize: 16,
   },
 });

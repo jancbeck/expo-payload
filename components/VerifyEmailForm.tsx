@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
-import { Text, View, TextInput, StyleSheet, Pressable } from "react-native";
-import { useRouter } from "expo-router";
+import React, { useState } from 'react';
+import { Text, View, TextInput, StyleSheet, Pressable } from 'react-native';
+import { useRouter } from 'expo-router';
 
-import { verifyEmail } from "@/lib/actions";
+import { verifyEmail } from '@/lib/actions';
 
 export const VerifyEmailForm = () => {
-  const [token, setToken] = useState("");
+  const [token, setToken] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
   return (
@@ -31,7 +31,7 @@ export const VerifyEmailForm = () => {
           if (result.isError) {
             console.error(result.message);
           } else {
-            router.push("/");
+            router.push('/');
           }
         }}
       >
@@ -43,36 +43,36 @@ export const VerifyEmailForm = () => {
 
 const styles = StyleSheet.create({
   form: {
-    display: "flex",
-    flexDirection: "column",
+    display: 'flex',
+    flexDirection: 'column',
     gap: 20,
-    minWidth: "100%",
-    marginHorizontal: "auto",
+    minWidth: '100%',
+    marginHorizontal: 'auto',
     padding: 20,
     borderWidth: 1,
-    borderColor: "#ccc",
+    borderColor: '#ccc',
     borderRadius: 8,
-    backgroundColor: "#f9f9f9",
+    backgroundColor: '#f9f9f9',
   },
   formGroup: {},
   label: {
     marginBottom: 8,
-    fontWeight: "bold",
+    fontWeight: 'bold',
   },
   input: {
     padding: 10,
     borderWidth: 1,
-    borderColor: "#ccc",
+    borderColor: '#ccc',
     borderRadius: 4,
     fontSize: 16,
   },
   button: {
     padding: 10,
     borderRadius: 4,
-    backgroundColor: "#007bff",
+    backgroundColor: '#007bff',
   },
   buttonText: {
-    color: "white",
+    color: 'white',
     fontSize: 16,
   },
 });
