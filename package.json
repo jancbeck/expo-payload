@@ -8,7 +8,8 @@
     "android": "expo run:android",
     "ios": "expo run:ios",
     "web": "expo start --web",
-    "test": "jest --watchAll",
+    "test": "jest __tests__ --watchAll",
+    "test:ci": "jest __tests__",
     "lint": "expo lint",
     "seed:reset": "bunx --bun payload run scripts/seed.ts -- --disable-transpile",
     "generate:types": "bunx --bun payload generate:types --disable-transpile"
