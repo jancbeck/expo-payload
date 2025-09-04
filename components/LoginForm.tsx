@@ -7,18 +7,17 @@ import { useRouter, Link } from 'expo-router';
 import { useSession } from '@/components/Providers';
 
 export const LoginForm = () => {
-  const { login } = useSession();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
-  const { session, isLoading } = useSession();
+  const { login, session, isLoading } = useSession();
 
   useEffect(() => {
     if (session) {
       // On web, static rendering will stop here as the user is not authenticated
       // in the headless Node process that the pages are rendered in.
-      router.push('/app');
+      router.push('/(app)');
     }
   });
 
@@ -62,7 +61,7 @@ export const LoginForm = () => {
           if (typeof successOrError === 'object') {
             alert(successOrError.message);
           } else {
-            router.push('/');
+            router.push('/(app)');
           }
         }}
       >

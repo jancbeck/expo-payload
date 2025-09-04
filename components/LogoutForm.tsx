@@ -11,7 +11,6 @@ export function Logout() {
       <Text
         style={{ textAlign: 'center' }}
         onPress={() => {
-          // The `app/(app)/_layout.tsx` will redirect to the sign-in screen.
           logout();
         }}
       >

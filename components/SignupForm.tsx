@@ -46,7 +46,7 @@ export const SignupForm = () => {
           const result = await createUser({ email, password });
           setIsSubmitting(false);
           if (result.isError) {
-            console.error(result.message);
+            alert(result.message);
           } else {
             router.push('/verify-email');
           }

@@ -18,7 +18,7 @@ export default function HomePage() {
       <View>
         <Suspense fallback={<Text>Loading...</Text>}>{renderPosts()}</Suspense>
         <Link
-          href="/app/create"
+          href="/(app)/create"
           style={{
             marginTop: 20,
             marginBottom: 20,

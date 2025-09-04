@@ -1,7 +1,6 @@
 'use client';
 
-import { useContext, createContext, type PropsWithChildren } from 'react';
-
+import { use, createContext, type PropsWithChildren } from 'react';
 import { useStorageState } from '@/lib/useStorageState';
 import { loginUser } from '@/lib/actions';
 
@@ -12,12 +11,12 @@ const AuthContext = createContext<{
   }: {
     email: string;
     password: string;
-  }) => Promise<boolean | { message: string }>;
+  }) => Promise<true | { message: string }>;
   logout: () => void;
   session?: string | null;
   isLoading: boolean;
 }>({
-  login: async () => false,
+  login: () => Promise.resolve({ message: 'N/A' }),
   logout: () => null,
   session: null,
   isLoading: false,
@@ -25,11 +24,9 @@ const AuthContext = createContext<{
 
 // This hook can be used to access the user info.
 export function useSession() {
-  const value = useContext(AuthContext);
-  if (process.env.NODE_ENV !== 'production') {
-    if (!value) {
-      throw new Error('useSession must be wrapped in a <SessionProvider />');
-    }
+  const value = use(AuthContext);
+  if (!value) {
+    throw new Error('useSession must be wrapped in a <SessionProvider />');
   }
 
   return value;
@@ -39,7 +36,7 @@ export function SessionProvider({ children }: PropsWithChildren) {
   const [[isLoading, session], setSession] = useStorageState('session');
 
   return (
-    <AuthContext.Provider
+    <AuthContext
       value={{
         login: async ({ email, password }) => {
           const successOrError = await loginUser({ email, password });
@@ -58,6 +55,6 @@ export function SessionProvider({ children }: PropsWithChildren) {
       }}
     >
       {children}
-    </AuthContext.Provider>
+    </AuthContext>
   );
 }

@@ -42,7 +42,7 @@ export const CreatePostForm = () => {
           setIsSubmitting(true);
           await createPost({ title, photo, token });
           setIsSubmitting(false);
-          router.push('/app');
+          router.push('/(app)');
         }}
       >
         <Text style={styles.buttonText}>Submit</Text>
