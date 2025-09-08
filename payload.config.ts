@@ -11,7 +11,7 @@ export default buildConfig({
   db: postgresAdapter({
     idType: 'uuid',
     pool: {
-      connectionString: process.env.DATABASE_URI,
+      connectionString: process.env.DATABASE_URI || '',
     },
   }),
   typescript: {
@@ -31,7 +31,7 @@ export default buildConfig({
         posts: true,
       },
       options: {
-        token: process.env.UPLOADTHING_SECRET,
+        token: process.env.UPLOADTHING_TOKEN || '',
         acl: 'public-read',
       },
     }),
