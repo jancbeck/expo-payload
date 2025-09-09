@@ -1,6 +1,6 @@
 'use client';
 
-import { SplashScreen } from 'expo-router';
+import * as SplashScreen from 'expo-splash-screen';
 import { useSession } from './Providers';
 
 export function SplashScreenController() {

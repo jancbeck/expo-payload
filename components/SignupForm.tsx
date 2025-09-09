@@ -2,18 +2,27 @@
 
 import React, { useState } from 'react';
 import { Pressable, View, Text, TextInput, StyleSheet } from 'react-native';
-import { useRouter } from 'expo-router';
 
-import { createUser } from '@/lib/actions';
+import { useSession } from './Providers';
 
 export const SignupForm = () => {
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const router = useRouter();
+  const { signUp } = useSession();
 
   return (
     <View style={styles.form}>
+      <View style={styles.formGroup}>
+        <Text style={styles.label}>Name</Text>
+        <TextInput
+          style={styles.input}
+          value={name}
+          onChangeText={(text) => setName(text)}
+          placeholder="Name"
+        />
+      </View>
       <View style={styles.formGroup}>
         <Text style={styles.label}>Email</Text>
         <TextInput
@@ -43,13 +52,8 @@ export const SignupForm = () => {
         disabled={isSubmitting}
         onPress={async () => {
           setIsSubmitting(true);
-          const result = await createUser({ email, password });
+          await signUp({ name, email, password });
           setIsSubmitting(false);
-          if (result.isError) {
-            alert(result.message);
-          } else {
-            router.push('/verify-email');
-          }
         }}
       >
         <Text style={styles.buttonText}>Sign up</Text>

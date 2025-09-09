@@ -5,18 +5,17 @@ import { getPayload } from '@/lib/payload';
 export async function createPost({
   title,
   photo,
-  token,
+  authCookie,
 }: {
   title: string;
   photo?: string;
-  token: string | null | undefined;
+  authCookie: string;
 }) {
-  if (!token) {
-    return { isError: true, message: 'Not logged in' };
-  }
   try {
     const payload = await getPayload();
-    const user = await getUser(token);
+    const { user } = await payload.auth({
+      headers: new Headers({ Cookie: authCookie }),
+    });
     if (!user) {
       throw new Error('User not found');
     }
@@ -35,84 +34,14 @@ export async function createPost({
       collection: 'posts',
       data: {
         title,
-        author: user.id,
+        user: user.id,
       },
       file,
       user,
+      overrideAccess: false,
     });
     return { ok: true };
   } catch (error) {
     return { isError: true, message: (error as Error).message };
-  }
-}
-
-export async function getUser(token: string) {
-  const payload = await getPayload();
-  const headers = new Headers({
-    Authorization: `JWT ${token}`,
-  });
-  const { user } = await payload.auth({ headers });
-  return user;
-}
-
-export async function loginUser({
-  email,
-  password,
-}: {
-  email: string;
-  password: string;
-}) {
-  try {
-    const payload = await getPayload();
-    const { token } = await payload.login({
-      collection: 'authors',
-      data: {
-        email,
-        password,
-      },
-    });
-    if (!token) {
-      return { message: 'Invalid credentials' };
-    }
-    return token;
-  } catch (error) {
-    return { message: (error as Error).message };
-  }
-}
-
-export async function createUser({
-  email,
-  password,
-}: {
-  email: string;
-  password: string;
-}) {
-  try {
-    const payload = await getPayload();
-    // TODO: add checks for existing user
-    const author = await payload.create({
-      collection: 'authors',
-      data: {
-        email,
-        password,
-      },
-      disableVerificationEmail: false,
-    });
-    if (!author) {
-      return { isError: true, message: 'Invalid credentials' };
-    }
-    return { ok: true };
-  } catch (error) {
-    return { isError: true, message: (error as Error).message };
-  }
-}
-
-export async function verifyEmail(token: string) {
-  const payload = await getPayload();
-  try {
-    await payload.verifyEmail({ collection: 'authors', token });
-    return { ok: true };
-  } catch (error) {
-    return { isError: true, message: 'Invalid token' };
   }
 }

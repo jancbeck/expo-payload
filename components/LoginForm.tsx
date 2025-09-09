@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { Pressable, View, Text, TextInput, StyleSheet } from 'react-native';
-import { useRouter, Link } from 'expo-router';
+import { Link, useRouter } from 'expo-router';
 
 import { useSession } from '@/components/Providers';
 
@@ -10,16 +10,15 @@ export const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { login, isLoading, session } = useSession();
   const router = useRouter();
-  const { login, session, isLoading } = useSession();
 
   useEffect(() => {
     if (session) {
-      // On web, static rendering will stop here as the user is not authenticated
-      // in the headless Node process that the pages are rendered in.
-      router.push('/(app)');
+      // redirect to home
+      router.replace('/(app)');
     }
-  });
+  }, [session, router]);
 
   // You can keep the splash screen open, or render a loading screen like we do here.
   if (isLoading) {
@@ -56,13 +55,13 @@ export const LoginForm = () => {
         disabled={isSubmitting}
         onPress={async () => {
           setIsSubmitting(true);
-          const successOrError = await login({ email, password });
+          await login({ email, password });
           setIsSubmitting(false);
-          if (typeof successOrError === 'object') {
-            alert(successOrError.message);
-          } else {
-            router.push('/(app)');
-          }
+          // if (typeof successOrError === 'object') {
+          //   alert(successOrError.message);
+          // } else {
+          //   router.push('/(app)');
+          // }
         }}
       >
         <Text style={styles.buttonText}>Login</Text>

@@ -1,16 +1,20 @@
 import { render } from '@testing-library/react-native';
 
-import { VerifyEmailForm } from '@/components/VerifyEmailForm';
+import { LoginForm } from '@/components/LoginForm';
 
 // Mock the server actions
-jest.mock('@/lib/actions', () => ({
-  verifyEmail: jest.fn(),
+jest.mock('@/lib/auth-client', () => ({
+  authClient: {
+    signIn: {
+      email: jest.fn(),
+    },
+  },
 }));
 
-describe('<VerifyEmailForm />', () => {
-  test('Text renders correctly on VerifyEmailForm', () => {
-    const { getByText } = render(<VerifyEmailForm />);
+describe('<LoginForm />', () => {
+  test('Text renders correctly on LoginForm', () => {
+    const { getByText } = render(<LoginForm />);
 
-    getByText('Verify');
+    getByText('Login');
   });
 });

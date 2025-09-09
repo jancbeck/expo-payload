@@ -5,6 +5,8 @@ const path = require('path');
 /** @type {import('expo/metro-config').MetroConfig} */
 const config = getDefaultConfig(__dirname);
 
+config.resolver.unstable_enablePackageExports = true;
+
 // Add custom resolver to handle problematic packages
 config.resolver.resolveRequest = (context, moduleName, platform) => {
   // Specifically intercept uuid imports

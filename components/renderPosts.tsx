@@ -1,16 +1,24 @@
 'use server';
-import 'server-only';
 
 import { Text, View, Image } from 'react-native';
 
 import { getPayload } from '@/lib/payload';
 import { generateURL } from '@/lib/ut';
 
-export async function renderPosts() {
+export async function renderPosts({ authCookie }: { authCookie: string }) {
   const payload = await getPayload();
+
+  const { user } = await payload.auth({
+    headers: new Headers({ Cookie: authCookie }),
+  });
+
   const { docs } = await payload.find({
     collection: 'posts',
+    // enforce authentication
+    user,
+    overrideAccess: false,
   });
+
   return !!docs.length ? (
     docs.map((post) => (
       <View key={post.id}>

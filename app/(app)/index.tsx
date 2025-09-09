@@ -3,7 +3,7 @@ import { Text, View } from 'react-native';
 
 import { Logout } from '@/components/LogoutForm';
 import { Link } from 'expo-router';
-import { renderPosts } from '@/components/renderPosts';
+import { Posts } from '@/components/Posts';
 
 export default function HomePage() {
   return (
@@ -16,7 +16,9 @@ export default function HomePage() {
       }}
     >
       <View>
-        <Suspense fallback={<Text>Loading...</Text>}>{renderPosts()}</Suspense>
+        <Suspense fallback={<Text>Loading...</Text>}>
+          <Posts />
+        </Suspense>
         <Link
           href="/(app)/create"
           style={{
