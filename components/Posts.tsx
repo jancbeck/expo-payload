@@ -2,8 +2,8 @@
 
 import { Suspense, useMemo } from 'react';
 import { renderPosts } from './renderPosts';
-import { Text } from 'react-native';
 import { getCookie } from '@/lib/auth-client';
+import { LoadingSpinner } from './LoadingSpinner';
 
 export function Posts() {
   const authCookie = getCookie();
@@ -11,5 +11,12 @@ export function Posts() {
   // Call the Server Function with token for authentication
   // Causes > ERROR  Cannot update a component (`%s`) while rendering a different component (`%s`).
   const posts = useMemo(() => renderPosts({ authCookie }), [authCookie]);
-  return <Suspense fallback={<Text>Loading...</Text>}>{posts}</Suspense>;
+
+  return (
+    <Suspense
+      fallback={<LoadingSpinner message="Loading posts..." size="large" />}
+    >
+      {posts}
+    </Suspense>
+  );
 }

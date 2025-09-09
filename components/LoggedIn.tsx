@@ -3,11 +3,11 @@
 import { Text } from 'react-native';
 import { useRouter } from 'expo-router';
 
-import { useSession } from '@/components/Providers';
+import { useSession } from '@/lib/auth-client';
 import { useEffect } from 'react';
 
 export function LoggedIn({ children }: { children: React.ReactNode }) {
-  const { session, isLoading } = useSession();
+  const { data: session, isPending: isLoading } = useSession();
   const router = useRouter();
 
   // Only require authentication within the (app) group's layout as users

@@ -2,16 +2,18 @@
 
 import { Text, View } from 'react-native';
 
-import { useSession } from './Providers';
+import { signOut } from '@/lib/auth-client';
+import { useRouter } from 'expo-router';
 
 export function Logout() {
-  const { logout } = useSession();
+  const router = useRouter();
   return (
     <View style={{ flexGrow: 0 }}>
       <Text
         style={{ textAlign: 'center' }}
-        onPress={() => {
-          logout();
+        onPress={async () => {
+          await signOut();
+          router.push('/');
         }}
       >
         Sign Out

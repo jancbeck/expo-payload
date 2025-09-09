@@ -1,10 +1,10 @@
 'use client';
 
 import * as SplashScreen from 'expo-splash-screen';
-import { useSession } from './Providers';
+import { useSession } from '@/lib/auth-client';
 
 export function SplashScreenController() {
-  const { isLoading } = useSession();
+  const { isPending: isLoading } = useSession();
 
   if (!isLoading) {
     SplashScreen.hideAsync();

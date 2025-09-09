@@ -4,14 +4,15 @@ import { uploadthingStorage } from '@payloadcms/storage-uploadthing';
 import { buildConfig } from 'payload';
 import { Users } from './collections/Users';
 import { Posts } from './collections/Posts';
+import { env } from '@/lib/env';
 
 export default buildConfig({
   collections: [Users, Posts],
-  secret: process.env.PAYLOAD_SECRET || '',
+  secret: env.PAYLOAD_SECRET,
   db: postgresAdapter({
     idType: 'uuid',
     pool: {
-      connectionString: process.env.DATABASE_URI || '',
+      connectionString: env.DATABASE_URI,
     },
   }),
   typescript: {
@@ -23,17 +24,21 @@ export default buildConfig({
   email: resendAdapter({
     defaultFromAddress: 'delivered@resend.dev',
     defaultFromName: 'Payload CMS',
-    apiKey: process.env.RESEND_API_KEY || '',
+    apiKey: env.RESEND_API_KEY || '',
   }),
   plugins: [
-    uploadthingStorage({
-      collections: {
-        posts: true,
-      },
-      options: {
-        token: process.env.UPLOADTHING_TOKEN || '',
-        acl: 'public-read',
-      },
-    }),
+    ...(env.UPLOADTHING_TOKEN
+      ? [
+          uploadthingStorage({
+            collections: {
+              posts: true,
+            },
+            options: {
+              token: env.UPLOADTHING_TOKEN,
+              acl: 'public-read',
+            },
+          }),
+        ]
+      : []),
   ],
 });
