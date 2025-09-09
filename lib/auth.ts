@@ -22,8 +22,8 @@ export const auth = betterAuth({
   plugins: [expo(), admin()],
   trustedOrigins: [
     'expo-payload://',
-    'exp://192.168.1.119:8081', // TODO: get this dynamically
-  ],
+    process.env.EXPO_TRUSTED_ORIGIN,
+  ].filter(Boolean),
   emailAndPassword: {
     enabled: true, // Enable authentication using email and password.
     minPasswordLength: 4,
