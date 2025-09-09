@@ -7,7 +7,6 @@ import { generateURL } from '@/lib/ut';
 
 export async function renderPosts({ authCookie }: { authCookie: string }) {
   const payload = await getPayload();
-  console.log({ authCookie });
 
   const { user } = await payload.auth({
     headers: new Headers({ Cookie: authCookie }),
