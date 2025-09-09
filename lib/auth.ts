@@ -20,10 +20,9 @@ export const auth = betterAuth({
     type: 'postgres',
   },
   plugins: [expo(), admin()],
-  trustedOrigins: [
-    'expo-payload://',
-    process.env.EXPO_TRUSTED_ORIGIN,
-  ].filter(Boolean),
+  trustedOrigins: ['expo-payload://', process.env.EXPO_TRUSTED_ORIGIN].filter(
+    (v): v is string => typeof v === 'string' && v.length > 0,
+  ),
   emailAndPassword: {
     enabled: true, // Enable authentication using email and password.
     minPasswordLength: 4,
