@@ -6,11 +6,11 @@ import { useRouter } from 'expo-router';
 import { Image } from 'expo-image';
 
 import { createPost } from '@/lib/actions';
-import { useSession } from '@/components/Providers';
 import { Camera } from './Camera';
+import { getCookie } from '@/lib/auth-client';
 
 export const CreatePostForm = () => {
-  const { session: token } = useSession();
+  const authCookie = getCookie();
   const [title, setTitle] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
@@ -33,6 +33,7 @@ export const CreatePostForm = () => {
           value={title}
           onChangeText={(text) => setTitle(text)}
           placeholder="Title"
+          editable={!isSubmitting}
         />
       </View>
       <Pressable
@@ -40,12 +41,14 @@ export const CreatePostForm = () => {
         disabled={isSubmitting}
         onPress={async () => {
           setIsSubmitting(true);
-          await createPost({ title, photo, token });
+          await createPost({ title, photo, authCookie });
           setIsSubmitting(false);
           router.push('/(app)');
         }}
       >
-        <Text style={styles.buttonText}>Submit</Text>
+        <Text style={styles.buttonText}>
+          {isSubmitting ? 'Submitting...' : 'Submit'}
+        </Text>
       </Pressable>
     </View>
   );

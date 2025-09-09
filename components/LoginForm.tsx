@@ -1,8 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Pressable, View, Text, TextInput, StyleSheet } from 'react-native';
-import { Link } from 'expo-router';
+import { Link, useRouter } from 'expo-router';
 
 import { useSession } from '@/components/Providers';
 
@@ -10,7 +10,15 @@ export const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const { login, isLoading } = useSession();
+  const { login, isLoading, session } = useSession();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (session) {
+      // redirect to home
+      router.replace('/(app)');
+    }
+  }, [session, router]);
 
   // You can keep the splash screen open, or render a loading screen like we do here.
   if (isLoading) {

@@ -4,9 +4,6 @@ import { isOwner } from '@/access/isOwner';
 import type { auth } from '@/lib/auth';
 import { betterFetch } from '@better-fetch/fetch';
 
-// importing from expo-router/rsc/headers breaks payload CLI scripts due to "server-only" package
-import { unstable_headers as headers } from 'expo-router/build/rsc/server';
-
 // users with multiple roles have a comma-separated list of roles
 const getUserRole = (role: string | null | undefined) => {
   if (role?.includes('admin')) {
@@ -26,7 +23,7 @@ export const Users: CollectionConfig = {
     strategies: [
       {
         name: 'better-auth',
-        authenticate: async ({ payload }) => {
+        authenticate: async ({ payload, headers }) => {
           // const session = await auth.api.getSession({
           //   headers: await headers(),
           // });
@@ -38,11 +35,15 @@ export const Users: CollectionConfig = {
             '/api/auth/get-session',
             {
               baseURL: String(process.env.EXPO_PUBLIC_BETTER_AUTH_URL),
-              headers: await headers(),
+              headers: headers.get('Cookie')
+                ? // on native we use the manually passed cookie auth header
+                  headers
+                : // on web headers (including cookies) are automatically included but must be accessed via `unstable_headers()`
+                  await (
+                    await import('expo-router/build/rsc/server')
+                  ).unstable_headers(),
             },
           );
-
-          console.log({ session });
 
           const authId = session?.user.id;
           if (!authId) return { user: null };

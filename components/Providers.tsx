@@ -63,7 +63,6 @@ export function SessionProvider({ children }: PropsWithChildren) {
           if (data?.user.id && !error) {
             router.push('/(app)');
           }
-          console.log({ data, error });
         },
         logout: async () => {
           setIsLoading(true);
@@ -82,7 +81,6 @@ export function SessionProvider({ children }: PropsWithChildren) {
           if (data?.user.id && !error) {
             router.push('/(app)');
           }
-          console.log({ data, error });
         },
         session,
         isLoading,

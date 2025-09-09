@@ -1,32 +1,21 @@
 'use server';
 
 import { getPayload } from '@/lib/payload';
-import { auth } from '@/lib/auth';
-
-const getUserRole = (role: string | null | undefined) => {
-  if (role?.includes('admin')) {
-    return 'admin';
-  }
-  if (role?.includes('user')) {
-    return 'user';
-  }
-};
 
 export async function createPost({
   title,
   photo,
-  token,
+  authCookie,
 }: {
   title: string;
   photo?: string;
-  token: string | null | undefined;
+  authCookie: string;
 }) {
-  if (!token) {
-    return { isError: true, message: 'Not logged in' };
-  }
   try {
     const payload = await getPayload();
-    const user = await getUser(token);
+    const { user } = await payload.auth({
+      headers: new Headers({ Cookie: authCookie }),
+    });
     if (!user) {
       throw new Error('User not found');
     }
@@ -49,34 +38,10 @@ export async function createPost({
       },
       file,
       user,
+      overrideAccess: false,
     });
     return { ok: true };
   } catch (error) {
     return { isError: true, message: (error as Error).message };
   }
-}
-
-export async function getUser(authCookie: string) {
-  const payload = await getPayload();
-  const session = await auth.api.getSession({
-    headers: new Headers({ Cookie: authCookie }),
-  });
-
-  const authId = session?.user.id;
-  if (!authId) return null;
-  const role = getUserRole(session.user.role);
-
-  const {
-    docs: [user],
-  } = await payload.find({
-    collection: 'users',
-    overrideAccess: true,
-    where: {
-      authId: {
-        equals: authId,
-      },
-    },
-  });
-
-  return user && role ? { ...user, collection: 'users', role } : null;
 }
