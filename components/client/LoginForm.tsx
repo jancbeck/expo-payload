@@ -5,7 +5,7 @@ import { Pressable, View, Text, StyleSheet } from 'react-native';
 import { useRouter } from 'expo-router';
 
 import { useSession, signIn } from '@/lib/auth-client';
-import { LoadingSpinner } from '@/components/LoadingSpinner';
+import { LoadingSpinner } from '@/components/client/LoadingSpinner';
 
 export const LoginForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -30,7 +30,7 @@ export const LoginForm = () => {
     try {
       const result = await signIn.social({
         provider: 'github',
-        callbackURL: '/', // /(app) results in error "Invalid callbackURL"
+        callbackURL: '/(app)', // /(app) results in error "Invalid callbackURL"
       });
 
       if (result.error) {

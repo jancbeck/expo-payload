@@ -1,9 +1,9 @@
 import { Suspense } from 'react';
 import { Text, View } from 'react-native';
 
-import { Logout } from '@/components/LogoutForm';
+import { Logout } from '@/components/client/LogoutForm';
 import { Link } from 'expo-router';
-import { Posts } from '@/components/Posts';
+import { Posts } from '@/components/client/Posts';
 
 export default function HomePage() {
   return (

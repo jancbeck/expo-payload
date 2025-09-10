@@ -52,7 +52,7 @@
     "experiments": {
       "typedRoutes": true,
       "reactServerFunctions": true,
-      "reactServerComponentRoutes": true,
+      "reactServerComponentRoutes": false,
       "reactCompiler": true
     },
     "extra": {

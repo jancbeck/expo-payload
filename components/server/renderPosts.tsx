@@ -1,3 +1,4 @@
+/** @jsxImportSource react */
 'use server';
 
 import { Text, View, Image } from 'react-native';
