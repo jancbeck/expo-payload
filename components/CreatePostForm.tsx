@@ -6,7 +6,7 @@ import { useRouter } from 'expo-router';
 import { Image } from 'expo-image';
 
 import { createPost } from '@/lib/actions';
-import { Camera } from './Camera';
+import { PhotoSelector } from './PhotoSelector';
 import { getCookie } from '@/lib/auth-client';
 
 export const CreatePostForm = () => {
@@ -75,7 +75,7 @@ export const CreatePostForm = () => {
           </Pressable>
         </View>
       ) : (
-        <Camera setPhoto={setPhoto} />
+        <PhotoSelector setPhoto={setPhoto} />
       )}
 
       <View style={styles.formGroup}>

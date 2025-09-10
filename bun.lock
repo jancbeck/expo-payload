@@ -16,6 +16,7 @@
         "expo-dev-client": "~6.0.10",
         "expo-haptics": "~15.0.6",
         "expo-image": "~3.0.7",
+        "expo-image-picker": "~17.0.7",
         "expo-linking": "~8.0.7",
         "expo-router": "~6.0.0-preview.16",
         "expo-secure-store": "~15.0.6",
@@ -1333,6 +1334,10 @@
     "expo-haptics": ["expo-haptics@15.0.6", "", { "peerDependencies": { "expo": "*" } }, "sha512-Unns//atxLq4UkDrgvwNpzOB2pm6hPS1nhZVL8BIfOebU/++JQlKJYPam4sRn7w/vMbRYpJ8BmC96mRs3QR0Tg=="],
 
     "expo-image": ["expo-image@3.0.7", "", { "peerDependencies": { "expo": "*", "react": "*", "react-native": "*", "react-native-web": "*" }, "optionalPeers": ["react-native-web"] }, "sha512-JlokOLUnIx9fKWgC6jlP/0C1TJd6ESNo/hKVO49a989YvHodslj1GGRy9+CR2ak4WBJiBv1X6SrYMchMXobfSg=="],
+
+    "expo-image-loader": ["expo-image-loader@6.0.0", "", { "peerDependencies": { "expo": "*" } }, "sha512-nKs/xnOGw6ACb4g26xceBD57FKLFkSwEUTDXEDF3Gtcu3MqF3ZIYd3YM+sSb1/z9AKV1dYT7rMSGVNgsveXLIQ=="],
+
+    "expo-image-picker": ["expo-image-picker@17.0.7", "", { "dependencies": { "expo-image-loader": "~6.0.0" }, "peerDependencies": { "expo": "*" } }, "sha512-U/xuSqA8RyTHsVqan4xICFGFYCZPnHk4da163VH4eOOhU7f7YideFpLuhGoCpmYU3D7y8rmKse2c2vy8fRxI/g=="],
 
     "expo-json-utils": ["expo-json-utils@0.15.0", "", {}, "sha512-duRT6oGl80IDzH2LD2yEFWNwGIC2WkozsB6HF3cDYNoNNdUvFk6uN3YiwsTsqVM/D0z6LEAQ01/SlYvN+Fw0JQ=="],
 

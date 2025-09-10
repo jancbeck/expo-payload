@@ -20,6 +20,7 @@ This is an Expo React Native app with Payload CMS backend integration. The appli
 - **Database**: Two PostgreSQL instances via Docker - separate databases for Better Auth (port 5434) and Payload CMS (port 5433)
 - **Storage**: UploadThing adapter for Payload file uploads
 - **Camera**: Expo Camera with permissions for photo capture
+- **Image Picker**: Expo Image Picker for selecting images from photo library
 
 ## Development Commands
 
@@ -119,6 +120,7 @@ bun run prettier:write
 
 - `components/Providers.tsx` - Session and context providers
 - `components/Camera.tsx` - Camera functionality for photo capture
+- `components/PhotoSelector.tsx` - Photo selection component with camera and image picker options
 - `components/CreatePostForm.tsx` - Post creation form
 - `components/LoginForm.tsx` - GitHub OAuth login form (SignupForm removed)
 - `components/LoggedIn.tsx` - Protected content wrapper
