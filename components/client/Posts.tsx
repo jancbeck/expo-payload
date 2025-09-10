@@ -1,7 +1,7 @@
 'use client';
 
 import { Suspense, useMemo } from 'react';
-import { renderPosts } from './renderPosts';
+import { renderPosts } from '../server/renderPosts';
 import { getCookie } from '@/lib/auth-client';
 import { LoadingSpinner } from './LoadingSpinner';
 
