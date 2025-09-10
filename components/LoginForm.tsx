@@ -30,7 +30,7 @@ export const LoginForm = () => {
     try {
       const result = await signIn.social({
         provider: 'github',
-        callbackURL: '/', // /(app) results in error "Invalid callbackURL"
+        callbackURL: '/(app)', // /(app) results in error "Invalid callbackURL"
       });
 
       if (result.error) {
