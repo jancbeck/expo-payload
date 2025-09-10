@@ -29,10 +29,8 @@ export const env = createEnv({
       .string()
       .optional()
       .describe('UploadThing API token for file uploads'),
-    RESEND_API_KEY: z
-      .string()
-      .optional()
-      .describe('Resend API key for email services'),
+    GITHUB_CLIENT_ID: z.string().describe('GitHub OAuth client ID'),
+    GITHUB_CLIENT_SECRET: z.string().describe('GitHub OAuth client secret'),
   },
   clientPrefix: 'EXPO_PUBLIC_',
   client: {

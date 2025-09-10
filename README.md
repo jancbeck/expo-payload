@@ -10,8 +10,7 @@ This project showcases the cutting-edge integration of [React Server Components]
 - **Backend**: [**Payload CMS v3**](https://payloadcms.com) - Next.js-based headless CMS with type-safe configuration
 - **Database**: PostgreSQL with automatic schema generation
 - **Shared Code**: React Server Components enabling client/server code sharing
-- **Authentication**: JWT-based auth with email verification
-- **Storage & Email**: UploadThing and Resend integrations
+- **Authentication**: Better Auth with GitHub OAuth integration
 
 ## Quick Start
 
@@ -24,7 +23,7 @@ This project showcases the cutting-edge integration of [React Server Components]
 
 1. **Environment setup**
 
-   Add environment variables to `.env` (duplicate `.env.example`). `DATABASE_URI` and `PAYLOAD_SECRET` are required. To enable email verification and uploads, add your API keys for [resend](https://resend.com/emails) and [uploadthing](https://uploadthing.com/). You can use any other [email](https://payloadcms.com/docs/beta/email/overview) or [storage adapters](https://payloadcms.com/docs/beta/upload/storage-adapters) but these two offer free tiers and work well serverless.
+   Add environment variables to `.env` (duplicate `.env.example`). Required variables include `DATABASE_URI`, `PAYLOAD_SECRET`, `BETTER_AUTH_SECRET`, `BETTER_AUTH_DATABASE_URI`, and GitHub OAuth credentials (`GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET`). For uploads, add your API key for [uploadthing](https://uploadthing.com/). You can use any other [storage adapters](https://payloadcms.com/docs/beta/upload/storage-adapters) but UploadThing offers a free tier and works well serverless.
 
 1. **Database setup**
 
