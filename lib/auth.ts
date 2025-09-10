@@ -6,27 +6,30 @@ import pkg from 'pg';
 import { PostgresDialect } from 'kysely';
 import configPromise from '@payload-config';
 import { getPayload } from 'payload';
+import { env } from '@/lib/env';
 
 const { Pool } = pkg;
 
 export const auth = betterAuth({
-  baseURL: process.env.EXPO_PUBLIC_BETTER_AUTH_URL,
+  baseURL: env.EXPO_PUBLIC_BETTER_AUTH_URL,
   database: {
     dialect: new PostgresDialect({
       pool: new Pool({
-        connectionString: process.env.BETTER_AUTH_DATABASE_URI,
+        connectionString: env.BETTER_AUTH_DATABASE_URI,
       }),
     }),
     type: 'postgres',
   },
   plugins: [expo(), admin()],
-  trustedOrigins: ['expo-payload://', process.env.EXPO_TRUSTED_ORIGIN].filter(
+  socialProviders: {
+    github: {
+      clientId: env.GITHUB_CLIENT_ID,
+      clientSecret: env.GITHUB_CLIENT_SECRET,
+    },
+  },
+  trustedOrigins: ['expo-payload://', env.EXPO_TRUSTED_ORIGIN].filter(
     (v): v is string => typeof v === 'string' && v.length > 0,
   ),
-  emailAndPassword: {
-    enabled: true, // Enable authentication using email and password.
-    minPasswordLength: 4,
-  },
   session: {
     freshAge: 0, // disable freshness check for account deletion. TODO: add proper re-auth flow for delete action
   },

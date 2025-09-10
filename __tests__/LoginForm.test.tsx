@@ -2,12 +2,14 @@ import { render } from '@testing-library/react-native';
 
 import { LoginForm } from '@/components/LoginForm';
 
-// Mock the server actions
+// Mock the auth client
 jest.mock('@/lib/auth-client', () => ({
-  authClient: {
-    signIn: {
-      email: jest.fn(),
-    },
+  useSession: jest.fn(() => ({
+    data: null,
+    isPending: false,
+  })),
+  signIn: {
+    social: jest.fn(),
   },
 }));
 
@@ -15,6 +17,6 @@ describe('<LoginForm />', () => {
   test('Text renders correctly on LoginForm', () => {
     const { getByText } = render(<LoginForm />);
 
-    getByText('Login');
+    getByText('Continue with GitHub');
   });
 });

@@ -54,6 +54,12 @@ export const Camera = ({ setPhoto }: { setPhoto: (uri: string) => void }) => {
     <View style={styles.container}>
       <CameraView style={styles.camera} facing={facing} ref={cameraRef}>
         <View style={styles.buttonContainer}>
+          <TouchableOpacity
+            style={styles.flipButton}
+            onPress={toggleCameraFacing}
+          >
+            <Text style={styles.text}>Flip</Text>
+          </TouchableOpacity>
           <TouchableOpacity style={styles.button} onPress={takePhoto}>
             <Text style={styles.text}>Take Photo</Text>
           </TouchableOpacity>
@@ -82,14 +88,23 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: 'transparent',
     margin: 64,
+    justifyContent: 'space-between',
+    alignItems: 'flex-end',
   },
   button: {
-    flex: 1,
-    alignSelf: 'flex-end',
     alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    borderRadius: 50,
+    padding: 15,
+  },
+  flipButton: {
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    borderRadius: 25,
+    padding: 10,
   },
   text: {
-    fontSize: 24,
+    fontSize: 18,
     fontWeight: 'bold',
     color: 'white',
   },
