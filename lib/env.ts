@@ -16,7 +16,7 @@ export const env = createEnv({
       .string()
       .min(8)
       .describe('Secret key for Better Auth'),
-    // @ts-expect-error
+    // @ts-expect-error used on both client and server
     EXPO_PUBLIC_BETTER_AUTH_URL: z
       .string()
       .url()
