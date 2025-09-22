@@ -4,10 +4,14 @@ This is a Cross-Platform Full-Stack Starter project demonstrating shared code be
 
 ## Project Overview
 
-**Repository Size**: ~150 files, medium-sized TypeScript/React Native project  
-**Type**: Full-stack mobile/web application with CMS backend  
-**Primary Languages**: TypeScript (95%), JavaScript (configuration files)  
-**Target Platforms**: iOS, Android, Web  
+**Repository Size**: ~150 files, medium-sized TypeScript/React Native project
+
+**Type**: Full-stack mobile/web application with CMS backend
+
+**Primary Languages**: TypeScript (95%), JavaScript (configuration files)
+
+**Target Platforms**: iOS, Android, Web
+
 **Runtime**: Bun (preferred package manager)
 
 ## Key Technologies
@@ -32,13 +36,13 @@ This is a Cross-Platform Full-Stack Starter project demonstrating shared code be
    source ~/.bashrc  # or restart terminal
    ```
 
-2. **Install dependencies**:
+1. **Install dependencies**:
 
    ```bash
    bun install
    ```
 
-3. **Environment Configuration** (REQUIRED - many commands will fail without this):
+1. **Environment Configuration** (REQUIRED - many commands will fail without this):
 
    ```bash
    # Copy and configure environment variables
@@ -53,7 +57,7 @@ This is a Cross-Platform Full-Stack Starter project demonstrating shared code be
    # - UPLOADTHING_TOKEN (optional, for file uploads)
    ```
 
-4. **Database Setup** (for full functionality):
+1. **Database Setup** (for full functionality):
 
    ```bash
    # Start both PostgreSQL containers
@@ -116,7 +120,7 @@ The repository has GitHub Actions workflows in `.github/workflows/`:
    - Validation: `bun run lint` → `bun run test:ci`
    - **ALWAYS run these locally before pushing**
 
-2. **Copilot Setup** (`copilot-setup-steps.yml.yml`):
+1. **Copilot Setup** (`copilot-setup-steps.yml.yml`):
    - Pre-installs dependencies for Copilot agents
    - Sets up Node.js, Bun, and runs `bun install`
 
@@ -203,5 +207,17 @@ Better Auth (GitHub OAuth) → session management → Payload user sync → acce
 - **File uploads** use base64 encoding in server actions
 - **UUID IDs** are used throughout for better scalability
 - **Camera features** only work on physical devices, not simulators
+
+## Development Notes
+
+- Use bunx --bun prefix for Payload commands to ensure Bun runtime
+- iOS Simulator doesn't support camera - use physical device for camera testing
+- Authentication uses Better Auth with GitHub OAuth and separate database approach (Better Auth on :5434, Payload on :5433)
+- Better Auth handles OAuth flow and session management while Payload manages user profiles and content access
+- Server functions are enabled via Expo Router experiments
+- Payload auto-generates types during development when server is running
+- Posts collection supports image uploads with UploadThing storage
+- Run bun run migrate:auth after better auth plugin installs to update Better Auth schema
+- User roles are managed by Better Auth but synced to Payload for access control
 
 Trust these instructions - they are comprehensive and tested. Only search for additional information if these instructions are incomplete or found to be incorrect.
