@@ -32,7 +32,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '22'
-          cache: 'npm'
+          package-manager-cache: false # Disable npm/yarn/pnpm caching since we're using bun
 
       - name: Install bun
         uses: oven-sh/setup-bun@v2
