@@ -1,6 +1,7 @@
 'use server';
 
 import { getPayload } from '@/lib/payload';
+import type { Post } from '@/payload-types';
 
 export async function createPost({
   title,
@@ -41,6 +42,27 @@ export async function createPost({
       overrideAccess: false,
     });
     return { ok: true };
+  } catch (error) {
+    return { isError: true, message: (error as Error).message };
+  }
+}
+
+export async function getPosts({ authCookie }: { authCookie: string }): Promise<{ posts?: Post[]; isError?: boolean; message?: string }> {
+  try {
+    const payload = await getPayload();
+
+    const { user } = await payload.auth({
+      headers: new Headers({ Cookie: authCookie }),
+    });
+
+    const { docs } = await payload.find({
+      collection: 'posts',
+      // enforce authentication
+      user,
+      overrideAccess: false,
+    });
+
+    return { posts: docs };
   } catch (error) {
     return { isError: true, message: (error as Error).message };
   }

@@ -107,6 +107,7 @@ bun run prettier:write
 `lib/actions.ts` contains server-side functions:
 
 - `createPost()` - Creates posts with optional photo upload
+- `getPosts()` - Fetches posts with authentication for client-side rendering
 - `getUser()` - Gets Payload user from Better Auth session cookie
 
 `lib/auth.ts` contains Better Auth configuration:
@@ -126,7 +127,6 @@ bun run prettier:write
 - `components/LoggedIn.tsx` - Protected content wrapper
 - `components/LogoutForm.tsx` - User logout functionality
 - `components/Posts.tsx` - Post listing component
-- `components/renderPosts.tsx` - Post rendering utilities
 
 ## Configuration Files
 
