@@ -1,5 +1,3 @@
-'use client';
-
 import { useState, useRef } from 'react';
 import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { CameraView, CameraType, useCameraPermissions } from 'expo-camera';

@@ -1,5 +1,3 @@
-'use client';
-
 import { useState } from 'react';
 import { Pressable, View, Text, StyleSheet } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';

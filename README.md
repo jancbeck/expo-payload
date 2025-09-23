@@ -2,15 +2,16 @@
 
 A demonstration of shared code between frontend and backend for web and native apps in a single codebase.
 
-This project showcases the cutting-edge integration of [React Server Components](https://react.dev/reference/rsc/server-components) with [Expo](https://expo.dev) and [Payload CMS](https://payloadcms.com), enabling code sharing between client and server across web and mobile platforms. With Expo's server-rendered views for React Native and Payload's Next.js-based headless CMS, you can now write end-to-end type-safe applications that run everywhere.
+This project showcases the integration of client-side rendering with [Expo](https://expo.dev) and [Payload CMS](https://payloadcms.com), enabling efficient data fetching through server actions across web and mobile platforms. With Expo's universal apps and Payload's Next.js-based headless CMS, you can write end-to-end type-safe applications that run everywhere.
 
 ## Architecture
 
-- **Frontend**: **[Expo](https://docs.expo.dev)** - Universal apps with server-rendered views (beta)
+- **Frontend**: **[Expo](https://docs.expo.dev)** - Universal apps with client-side rendering
 - **Backend**: [**Payload CMS v3**](https://payloadcms.com) - Next.js-based headless CMS with type-safe configuration
 - **Database**: PostgreSQL with automatic schema generation
-- **Shared Code**: React Server Components enabling client/server code sharing
+- **Data Fetching**: Server actions for efficient client-server communication
 - **Authentication**: Better Auth with GitHub OAuth integration
+- **Components**: Route-based architecture with reusable components for common functionality
 
 ## Quick Start
 

@@ -1,6 +1,6 @@
 # Copilot Instructions for expo-payload
 
-This is a Cross-Platform Full-Stack Starter project demonstrating shared code between frontend and backend for web and native apps. It showcases the integration of React Server Components with Expo and Payload CMS, enabling code sharing between client and server across web and mobile platforms.
+This is a Cross-Platform Full-Stack Starter project demonstrating shared code between frontend and backend for web and native apps. It showcases the integration of client-side rendering with Expo and Payload CMS, enabling efficient data fetching through server actions across web and mobile platforms.
 
 ## Project Overview
 
@@ -20,9 +20,10 @@ This is a Cross-Platform Full-Stack Starter project demonstrating shared code be
 - **Backend**: Payload CMS v3 beta with PostgreSQL adapter, Next.js-based headless CMS
 - **Database**: Two separate PostgreSQL instances (Payload on port 5433, Better Auth on port 5434)
 - **Authentication**: Better Auth v1.3.8 with Expo plugin, GitHub OAuth integration
+- **Data Fetching**: Server actions for efficient client-server communication
 - **Storage**: UploadThing adapter for file uploads
 - **Styling**: NativeWind, TailwindCSS, Gluestack UI components
-- **Testing**: Jest with jest-expo preset
+- **Testing**: Jest with jest-expo preset, comprehensive route and component testing
 - **Linting**: ESLint with expo config and Prettier
 
 ## Critical Setup Requirements
@@ -131,13 +132,18 @@ The repository has GitHub Actions workflows in `.github/workflows/`:
 ```
 /app/              # Expo Router file-based routing
 ├── (app)/         # Protected routes requiring authentication
+│   ├── index.tsx  # Home screen with inlined Posts and Logout logic  
+│   └── create.tsx # Post creation with inlined form logic
 ├── api/           # API endpoints (Better Auth)
 ├── _layout.tsx    # Root layout with providers
-└── index.tsx      # Home screen
+└── index.tsx      # Login screen with inlined LoginForm logic
 
 /components/       # Reusable UI components
-├── client/        # Client-side components
-├── server/        # Server components
+├── Camera.tsx         # Camera capture with permission handling
+├── PhotoSelector.tsx  # Photo selection interface  
+├── LoadingSpinner.tsx # Loading states
+├── LoggedIn.tsx       # Authentication wrapper
+├── SplashScreenController.tsx # App initialization
 └── ui/           # UI library components (Gluestack)
 
 /collections/      # Payload CMS collections
@@ -146,7 +152,14 @@ The repository has GitHub Actions workflows in `.github/workflows/`:
 
 /access/          # Access control functions
 /lib/             # Shared utilities and configuration
+│   └── actions.ts # Server actions (createPost, getPosts)
 /scripts/         # Database and setup scripts
+/__tests__/       # Comprehensive test suite
+├── home-page.test.tsx        # Route tests
+├── create-post-page.test.tsx # Route tests
+├── Camera.test.tsx           # Component tests
+├── PhotoSelector.test.tsx    # Component tests
+└── actions.test.ts           # Server action tests
 ```
 
 ### Key Configuration Files
@@ -161,6 +174,34 @@ The repository has GitHub Actions workflows in `.github/workflows/`:
 ### Authentication Flow
 
 Better Auth (GitHub OAuth) → session management → Payload user sync → access control
+
+### Data Flow
+
+Client components → Server actions (`getPosts`, `createPost`) → Payload CMS → PostgreSQL
+
+## Architecture Patterns
+
+### Route-based Organization
+
+- **Route logic inlined**: Each route contains its specific UI and business logic
+- **No unnecessary abstractions**: Components only exist when they're truly reusable
+- **Colocated functionality**: Related code stays together for easier maintenance
+
+### Server Actions for Data Fetching
+
+- **`getPosts`**: Fetches posts with authentication and access control
+- **`createPost`**: Creates posts with optional photo upload
+- **Type-safe**: TypeScript inference for all return types
+- **Error handling**: Structured error responses for client consumption
+
+### Component Strategy
+
+- **Minimal but focused**: Only 5 reusable components in `/components`
+- **Camera.tsx**: Camera capture with permission handling
+- **PhotoSelector.tsx**: Photo selection interface (camera or gallery)
+- **LoadingSpinner.tsx**: Loading states across the app
+- **LoggedIn.tsx**: Authentication wrapper for protected routes
+- **SplashScreenController.tsx**: App initialization and splash screen
 
 ## Common Issues and Workarounds
 
@@ -178,6 +219,13 @@ Better Auth (GitHub OAuth) → session management → Payload user sync → acce
 
 - iOS Simulator doesn't support camera - use physical device for testing
 - Camera permissions are configured in `app.json`
+- Camera component handles permission states automatically
+
+**Testing Server Actions**:
+
+- Server actions use React Server Components which require special mocking
+- Tests use mock-based approach to validate function behavior
+- Route tests validate entire user flows instead of isolated components
 
 **Metro/Babel Issues**:
 
@@ -203,7 +251,8 @@ Better Auth (GitHub OAuth) → session management → Payload user sync → acce
 
 - **ALWAYS use Bun** instead of npm/yarn - this is critical for compatibility
 - **Two separate databases** are required - do not try to use a single database
-- **Server functions** are experimental - enabled via Expo Router experiments
+- **Client-side rendering** - all rendering happens on the client with server actions for data
+- **Route-based architecture** - route logic is inlined, components are only for reusable functionality
 - **File uploads** use base64 encoding in server actions
 - **UUID IDs** are used throughout for better scalability
 - **Camera features** only work on physical devices, not simulators
@@ -214,10 +263,12 @@ Better Auth (GitHub OAuth) → session management → Payload user sync → acce
 - iOS Simulator doesn't support camera - use physical device for camera testing
 - Authentication uses Better Auth with GitHub OAuth and separate database approach (Better Auth on :5434, Payload on :5433)
 - Better Auth handles OAuth flow and session management while Payload manages user profiles and content access
-- Server functions are enabled via Expo Router experiments
+- Server actions (`getPosts`, `createPost`) handle all data fetching with proper authentication
 - Payload auto-generates types during development when server is running
 - Posts collection supports image uploads with UploadThing storage
 - Run bun run migrate:auth after better auth plugin installs to update Better Auth schema
 - User roles are managed by Better Auth but synced to Payload for access control
+- All components are client components by default - no 'use client' pragmas needed
+- Testing covers both route flows and individual component functionality
 
 Trust these instructions - they are comprehensive and tested. Only search for additional information if these instructions are incomplete or found to be incorrect.
