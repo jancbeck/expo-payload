@@ -2,6 +2,24 @@ import { render } from '@testing-library/react-native';
 
 import CreatePostPage from '@/app/(app)/create';
 
+// Mock the PhotoSelector component 
+jest.mock('@/components/PhotoSelector', () => ({
+  PhotoSelector: ({ setPhoto }: { setPhoto: (uri: string) => void }) => {
+    const { View, Text, Pressable } = require('react-native');
+    return (
+      <View>
+        <Text>Add a Photo</Text>
+        <Pressable onPress={() => setPhoto('mock-photo')}>
+          <Text>Take Photo</Text>
+        </Pressable>
+        <Pressable onPress={() => setPhoto('mock-gallery-photo')}>
+          <Text>Choose from Gallery</Text>
+        </Pressable>
+      </View>
+    );
+  },
+}));
+
 // Mock the auth client and actions
 jest.mock('@/lib/auth-client', () => ({
   getCookie: jest.fn(() => 'mock-cookie'),
@@ -16,29 +34,6 @@ jest.mock('expo-router', () => ({
   useRouter: jest.fn(() => ({
     push: jest.fn(),
   })),
-}));
-
-// Mock expo-image-picker
-jest.mock('expo-image-picker', () => ({
-  requestMediaLibraryPermissionsAsync: jest.fn(),
-  launchImageLibraryAsync: jest.fn(),
-}));
-
-// Mock expo-camera
-jest.mock('expo-camera', () => ({
-  CameraView: 'CameraView',
-  useCameraPermissions: jest.fn(() => [
-    { granted: false },
-    jest.fn(),
-  ]),
-}));
-
-// Mock expo-file-system
-jest.mock('expo-file-system/legacy', () => ({
-  readAsStringAsync: jest.fn(),
-  EncodingType: {
-    Base64: 'base64',
-  },
 }));
 
 describe('CreatePostPage', () => {
