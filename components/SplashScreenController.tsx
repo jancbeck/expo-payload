@@ -1,5 +1,3 @@
-'use client';
-
 import * as SplashScreen from 'expo-splash-screen';
 import { useSession } from '@/lib/auth-client';
 

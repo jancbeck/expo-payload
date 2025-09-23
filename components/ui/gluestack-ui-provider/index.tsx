@@ -1,4 +1,3 @@
-'use client';
 import React, { useEffect } from 'react';
 import { config } from './config';
 import { View, ViewProps } from 'react-native';

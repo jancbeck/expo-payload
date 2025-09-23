@@ -1,5 +1,3 @@
-'use client';
-
 import { useRouter } from 'expo-router';
 
 import { useSession } from '@/lib/auth-client';

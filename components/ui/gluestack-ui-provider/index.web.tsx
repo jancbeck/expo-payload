@@ -1,4 +1,3 @@
-'use client';
 import React, { useEffect, useLayoutEffect } from 'react';
 import { config } from './config';
 import { OverlayProvider } from '@gluestack-ui/core/overlay/creator';
