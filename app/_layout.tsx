@@ -1,5 +1,5 @@
 import { Slot } from 'expo-router';
-import { SplashScreenController } from '@/components/client/SplashScreenController';
+import { SplashScreenController } from '@/components/SplashScreenController';
 import { GluestackUIProvider } from '@/components/ui/gluestack-ui-provider';
 import '@/global.css';
 

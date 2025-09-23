@@ -47,7 +47,7 @@ export async function createPost({
   }
 }
 
-export async function getPosts({ authCookie }: { authCookie: string }): Promise<{ posts?: Post[]; isError?: boolean; message?: string }> {
+export async function getPosts({ authCookie }: { authCookie: string }) {
   try {
     const payload = await getPayload();
 

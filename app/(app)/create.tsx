@@ -1,6 +1,6 @@
 import { View } from 'react-native';
 
-import { CreatePostForm } from '@/components/client/CreatePostForm';
+import { CreatePostForm } from '@/components/CreatePostForm';
 
 export default function CreatePostPage() {
   return (

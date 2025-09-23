@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react-native';
 
-import { LoginForm } from '@/components/client/LoginForm';
+import { LoginForm } from '@/components/LoginForm';
 
 // Mock the auth client
 jest.mock('@/lib/auth-client', () => ({
